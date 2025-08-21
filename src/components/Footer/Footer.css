@@ -1,0 +1,12 @@
+.footer {
+    display: flex;
+    
+}
+
+.footer__text {
+    font-family: 'CabinetGrotesk-Bold', sans-serif;
+    font-size: 16px;
+    color: #000;
+    margin: 0 0 24px 40px;
+    padding-top: 171px;
+}

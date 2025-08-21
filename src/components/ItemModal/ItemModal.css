@@ -1,0 +1,31 @@
+.modal__content {
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+.modal__image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.modal__footer {
+    font-size: 20px;
+    text-align:left;
+    padding: 24px 32px 32px 32px;
+}
+
+.modal__caption {
+  margin: 0;
+}          
+
+.modal__weather {
+    margin: 12px 0 0 0;
+}
+
+.modal__content_type_image {
+  padding: 0;
+}
