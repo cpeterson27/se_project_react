@@ -12,7 +12,7 @@ return (
         <img onClick={handleCardClick}
      className="card__image"
     src={item.link} 
-    alt={ItemCard.name} 
+    alt={item.name} 
     />
     </li>
 );

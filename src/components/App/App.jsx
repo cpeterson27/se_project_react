@@ -10,11 +10,10 @@ import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { defaultClothingItems, coordinates, APIkey } from "../../utils/constants";
 
 
-
 function App() {
 const [weatherData, setWeatherData] = useState({ 
   type: "", 
-  temp: { F: 999},
+  temp: { F: "Loading..."},
   city: "",
  });
 const [activeModal, setActiveModal] = useState("");
@@ -28,7 +27,7 @@ const handleAddItemSubmit = (e) => {
   e.preventDefault(); 
 
   const newItem = {
-    id: Date.now(), 
+    _id: Date.now(), 
     name,
     imageUrl,
     weather: weatherType,
@@ -95,7 +94,7 @@ useEffect(() => {
      <label htmlFor="imageUrl" className="modal__label">
                 Image {" "}
                 <input 
-                type="link" 
+                type="url" 
                 className="modal__input" 
                 id="imageUrl" 
                 name="Image Url"

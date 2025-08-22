@@ -9,13 +9,22 @@ return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lo
     });
 };
 
+const conditionMap={
+  clear: "sunny",
+  clouds: "cloudy",
+  rain: "rainy",
+  snow: "snowy",
+  fog: "foggy",
+  storm: "stormy"
+}
 
 export const filterWeatherData = (data) => {
     const result = {};
     result.city = data.name;
     result.temp = {F: data.main.temp};
     result.type = getWeatherType(result.temp.F);
-    result.condition = data.weather[0].main.toLowerCase();
+    result.apiCondition = data.weather[0].main.toLowerCase();
+    result.condition = conditionMap[result.apiCondition] || result.apiCondition;
     result.isDay = isDay(data.sys, Date.now());
     return result;
 };
