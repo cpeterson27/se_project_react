@@ -1,5 +1,8 @@
 import "./WeatherCard.css";
-import { weatherOptions, defaultWeatherOptions } from "../../utils/constants.js";
+import {
+  weatherOptions,
+  defaultWeatherOptions,
+} from "../../utils/constants.js";
 
 function WeatherCard({ weatherData }) {
   // Try to find a match in weatherOptions
@@ -32,9 +35,9 @@ function WeatherCard({ weatherData }) {
       <p className="weather-card__temp">{weatherData.temp.F} &deg; F</p>
       <img
         src={weatherOption?.url}
-        alt={`Card showing ${
-          weatherOption?.day ? "day" : "night"
-        }time ${weatherOption?.condition} weather`}
+        alt={`Card showing ${weatherOption?.day ? "day" : "night"}time ${
+          weatherOption?.condition
+        } weather`}
         className="weather-card__image"
       />
     </section>
