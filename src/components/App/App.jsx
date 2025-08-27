@@ -23,7 +23,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [link, setLink] = useState("");
   const [weatherType, setWeatherType] = useState("");
 
   const handleAddItemSubmit = (e) => {
@@ -32,7 +32,7 @@ function App() {
     const newItem = {
       _id: Date.now(),
       name,
-      imageUrl,
+      link,
       weather: weatherType,
     };
 
@@ -40,7 +40,7 @@ function App() {
     closeActiveModal();
 
     setName("");
-    setImageUrl("");
+    setLink("");
     setWeatherType("");
   };
 
@@ -121,8 +121,8 @@ function App() {
             id="imageUrl"
             name="Image Url"
             placeholder="Image URL"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
           />
         </label>
         <fieldset className="modal__radio-buttons">
