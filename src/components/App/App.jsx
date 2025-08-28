@@ -25,6 +25,7 @@ function App() {
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
   const [weatherType, setWeatherType] = useState("");
+  const [currentTemperatureUnit, setcurrentTemperatureUnit] = useState("F");
 
   const handleAddItemSubmit = (e) => {
     e.preventDefault();
