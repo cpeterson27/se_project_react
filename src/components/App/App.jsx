@@ -12,6 +12,7 @@ import {
   coordinates,
   APIkey,
 } from "../../utils/constants";
+import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnit";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -26,6 +27,10 @@ function App() {
   const [link, setLink] = useState("");
   const [weatherType, setWeatherType] = useState("");
   const [currentTemperatureUnit, setcurrentTemperatureUnit] = useState("F");
+
+  const handleToggleSwitchChange = () => {
+    setcurrentTemperatureUnit(currentTemperatureUnit === "F"? "C": "F");
+  }
 
   const handleAddItemSubmit = (e) => {
     e.preventDefault();
@@ -85,6 +90,8 @@ function App() {
       .catch(console.error);
   }, []);
   return (
+    <CurrentTemperatureUnitContext.Provider 
+    value = {{ currentTemperatureUnit, handleToggleSwitchChange }}>
     <div className="page">
       <div className="page__content">
         <Header handleAddClick={handleAddClick} weatherData={weatherData} />
@@ -179,6 +186,7 @@ function App() {
       />
       <Footer />
     </div>
+    </CurrentTemperatureUnitContext.Provider>
   );
 }
 

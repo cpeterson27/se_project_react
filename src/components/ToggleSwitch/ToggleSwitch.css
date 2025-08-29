@@ -1,11 +1,14 @@
 .toggle-switch {
+    position: relative;
     width: 56px;
     height: 28px;
     border: 2px solid black;
     border-radius: 20px;
     cursor: pointer;
     overflow: hidden;
-    position: relative;
+    margin: 0 20px 0 auto;
+    font-family: 'CabinetGrotesk-Bold', sans-serif;
+    font-size: 14px;
 }
 
 .toggle-switch__checkbox {
@@ -22,19 +25,22 @@ opacity: 0;
     transition: all 0.2s;
 }
 
-.toggle-switch__text {
-    position: absolute;
-    top: 5px;
+.toggle-switch__text_F,
+.toggle-switch__text_C {
+  position: absolute; 
+  top: 5px;
+  color: grey;
 }
 
 .toggle-switch__text_F {
-    left: 9px;
+  left: 9px;
 }
 
 .toggle-switch__text_C {
-    right: 9px;
+  right: 9px;
 }
 
 .toggle-switch__checkbox:checked ~ .toggle-switch__circle {
     left: 28px;
 }
+
