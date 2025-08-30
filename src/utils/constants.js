@@ -7,7 +7,7 @@ export const weatherOptions = [
 },
 {
   day: false,
-  condition: "clear",
+  condition: "clear-night",
   url: new URL("../assets/night/clear.png", import.meta.url).href
 },
 {
@@ -17,47 +17,47 @@ export const weatherOptions = [
 },
 {
   day: false,
-  condition: "cloudy",
+  condition: "cloudy-night",
   url: new URL("../assets/night/cloudy.png", import.meta.url).href
 },
 {
   day: true,
-  condition: "rain",
+  condition: "rainy",
   url: new URL("../assets/day/rain.png", import.meta.url).href
 },
 {
   day: false,
-  condition: "rain",
+  condition: "rainy-night",
   url: new URL("../assets/night/rain.png", import.meta.url).href
 },
 {
   day: true,
-  condition: "snow",
+  condition: "snowy",
   url: new URL("../assets/day/snow.png", import.meta.url).href
 },
 {
   day: false,
-  condition: "snow",
+  condition: "snowy-night",
   url: new URL("../assets/night/snow.png", import.meta.url).href
 },
 {
   day: true,
-  condition: "fog",
+  condition: "foggy",
   url: new URL("../assets/day/fog.png", import.meta.url).href
 },
 {
   day: false,
-  condition: "fog",
+  condition: "foggy-night",
   url: new URL("../assets/night/fog.png", import.meta.url).href
 },
 {
   day: true,
-  condition: "storm",
+  condition: "stormy",
   url: new URL("../assets/day/storm.png", import.meta.url).href
 },
 {
   day: false,
-  condition: "storm",
+  condition: "stormy-night",
   url: new URL("../assets/night/storm.png", import.meta.url).href
 }
 ];
@@ -71,19 +71,19 @@ export const defaultWeatherOptions = {
     day: new URL("../assets/day/cloudy.png", import.meta.url).href,
     night: new URL("../assets/night/cloudy.png", import.meta.url).href,
   },
-  rain: {
+  rainy: {
     day: new URL("../assets/day/rain.png", import.meta.url).href,
     night: new URL("../assets/night/rain.png", import.meta.url).href,
   },
-  snow: {
+  snowy: {
     day: new URL("../assets/day/snow.png", import.meta.url).href,
     night: new URL("../assets/night/snow.png", import.meta.url).href,
   },
-  fog: {
+  foggy: {
     day: new URL("../assets/day/fog.png", import.meta.url).href,
     night: new URL("../assets/night/fog.png", import.meta.url).href,
   },
-  storm: {
+  stormy: {
     day: new URL("../assets/day/storm.png", import.meta.url).href,
     night: new URL("../assets/night/storm.png", import.meta.url).href,
   },

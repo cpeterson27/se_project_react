@@ -3,43 +3,42 @@ import {
   weatherOptions,
   defaultWeatherOptions,
 } from "../../utils/constants.js";
-
-function WeatherCard({ weatherData }) {
-  // Try to find a match in weatherOptions
+import { useContext } from "react";
+import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
+  
+const WeatherCard = ({ weatherData }) => {
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   const filteredOptions = weatherOptions.filter(
-    (option) =>
+    (option) => {
+      return(
       option.day === weatherData.isDay &&
       option.condition === weatherData.condition
   );
+});
 
   let weatherOption;
-
-  if (filteredOptions.length > 0) {
-    weatherOption = filteredOptions[0];
+  if (filteredOptions.length === 0) {
+    weatherOption = defaultWeatherOptions[weatherData.condition]?.
+    [weatherData.isDay ? "day" : "night"];
   } else {
-    // fallback lookup from defaultWeatherOptions
-    const conditionKey = weatherData.condition || "clear";
-    const fallback = defaultWeatherOptions[conditionKey];
-
-    weatherOption = {
-      day: weatherData.isDay,
-      condition: conditionKey,
-      url: fallback
-        ? fallback[weatherData.isDay ? "day" : "night"]
-        : defaultWeatherOptions.clear.day, // safe fallback
-    };
+    weatherOption = filteredOptions[0];
   }
 
   return (
     <section className="weather-card">
-      <p className="weather-card__temp">{weatherData.temp.F} &deg; F</p>
+      <p className="weather-card__temp">
+        {weatherData.temp[currentTemperatureUnit]} &deg; 
+        {currentTemperatureUnit}
+        </p>
+{weatherOption && weatherOption.url && (
       <img
-        src={weatherOption?.url}
-        alt={`Card showing ${weatherOption?.day ? "day" : "night"}time ${
-          weatherOption?.condition
+        src={weatherOption.url}
+        alt={`Card showing ${weatherData.isDay ? "day" : "night"} time ${
+          weatherData.condition
         } weather`}
         className="weather-card__image"
       />
+)}
     </section>
   );
 }
