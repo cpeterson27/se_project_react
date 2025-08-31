@@ -1,15 +1,16 @@
 import "./ModalWithForm.css";
 import closeIcon from "../../assets/close.svg";
 
-function ModalWithForm({
+
+const ModalWithForm = ({
   children,
   buttonText,
   title,
   isOpen,
   onClose,
   onSubmit,
-}) {
-  return (
+}) => {
+return (
     <div className={`modal ${isOpen && "modal_opened"}`}>
       <div className="modal__content">
         <h2 className="modal__title">{title}</h2>
@@ -24,7 +25,7 @@ function ModalWithForm({
         </form>
       </div>
     </div>
-  );
+);
 }
 
 export default ModalWithForm;
