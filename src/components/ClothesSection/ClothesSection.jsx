@@ -1,5 +1,5 @@
 import ItemCard from "../ItemCard/ItemCard";
-import "./ClothesSection.css" 
+import "./ClothesSection.css"; 
 
 function ClothesSection ( {handleCardClick, clothingItems} ) {
 
@@ -9,7 +9,7 @@ return (
         <p>Your Items</p>
         <button className="add-button">+ Add New</button>
     </div>
-    <ul className="cards__list">
+    <ul className="clothes__section">
           {clothingItems.map((item) => {
               return (
                 <ItemCard
