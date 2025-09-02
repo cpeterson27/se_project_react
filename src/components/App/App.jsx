@@ -12,6 +12,7 @@ import {
   APIkey,
 } from "../../utils/constants";
 import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
+import {Routes, Route} from "react-router-dom";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -29,28 +30,29 @@ function App() {
     setcurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
-  const handleAddItemSubmit = (e) => {
-    e.preventDefault();
-
-    const newItem = {
-      _id: Date.now(),
-      name: values.name,
-      link: values.link,
-      weather: values.weather,
-    };
-
-    setClothingItems([newItem, ...clothingItems]);
-    closeActiveModal();
-
-    const values = {
-      name: "",
-      link: "",
-      weather: "",
-    };
-  };
-
   const handleAddClick = () => {
     setActiveModal("add-garment");
+  };
+
+  const handleCardClick = (card) => {
+    setActiveModal("preview");
+    setSelectedCard(card);
+  };
+
+  const onAddItem = (inputValues) => {
+    // call the fetch function
+    // .then ({data} => {}) inclues all the stuff below
+    const newCardData = {
+      _id: Date.now(),
+      name: inputValues.name,
+      link: inputValues.link,
+      weather: inputValues.weather,
+    };
+    //dont use newCardData
+    // The ID will be included in the response data
+    setClothingItems([...clothingItems, newCardData]);
+    closeActiveModal();
+    //.catch()
   };
 
   const closeActiveModal = () => {
@@ -75,11 +77,6 @@ function App() {
     };
   }, [activeModal]);
 
-  const handleCardClick = (card) => {
-    setActiveModal("preview");
-    setSelectedCard(card);
-  };
-
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
@@ -95,16 +92,23 @@ function App() {
       <div className="page">
         <div className="page__content">
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
-          <Main
+
+<Routes>
+  <Route path="/" element={<Main
             weatherData={weatherData}
             handleCardClick={handleCardClick}
             clothingItems={clothingItems}
-          />
-        </div>
+          /> } />
+          
+  <Route path="/profile" element={ <p>PROFILE</p>} />
+</Routes>
+          
+
+
         <AddItemModal
           isOpen={activeModal === "add-garment"}
           onClose={closeActiveModal}
-          onSubmit={handleAddItemSubmit}
+          onAddItem={onAddItem}
         />
         <ItemModal
           activeModal={activeModal}
@@ -112,6 +116,7 @@ function App() {
           onClose={closeActiveModal}
         />
         <Footer />
+      </div>
       </div>
     </CurrentTemperatureUnitContext.Provider>
   );

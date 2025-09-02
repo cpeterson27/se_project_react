@@ -4,8 +4,9 @@ import closeIcon from "../../assets/close.svg";
 
 const ModalWithForm = ({
   children,
-  buttonText,
+  buttonText = "Add Garment",
   title,
+  name,
   isOpen,
   onClose,
   onSubmit,
@@ -17,7 +18,7 @@ return (
         <button onClick={onClose} type="button" className="modal__close">
           <img src={closeIcon} alt="Close" />
         </button>
-        <form className="modal__form" onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="modal__form" name={name}>
           {children}
           <button className="modal__submit" type="submit">
             {buttonText}
