@@ -1,0 +1,10 @@
+.add-button {
+    border:none;
+    color:black;
+    opacity: 60%;
+}
+
+.add-new{
+    display:flex;
+    gap: 20px;
+}

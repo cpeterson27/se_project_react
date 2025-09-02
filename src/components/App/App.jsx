@@ -12,7 +12,8 @@ import {
   APIkey,
 } from "../../utils/constants";
 import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
-import {Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Profile from "../Profile/Profile";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -93,30 +94,41 @@ function App() {
         <div className="page__content">
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
 
-<Routes>
-  <Route path="/" element={<Main
-            weatherData={weatherData}
-            handleCardClick={handleCardClick}
-            clothingItems={clothingItems}
-          /> } />
-          
-  <Route path="/profile" element={ <p>PROFILE</p>} />
-</Routes>
-          
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  weatherData={weatherData}
+                  handleCardClick={handleCardClick}
+                  clothingItems={clothingItems}
+                />
+              }
+            />
 
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  handleCardClick={handleCardClick}
+                  clothingItems={clothingItems}
+                />
+              }
+            />
+          </Routes>
 
-        <AddItemModal
-          isOpen={activeModal === "add-garment"}
-          onClose={closeActiveModal}
-          onAddItem={onAddItem}
-        />
-        <ItemModal
-          activeModal={activeModal}
-          card={selectedCard}
-          onClose={closeActiveModal}
-        />
-        <Footer />
-      </div>
+          <AddItemModal
+            isOpen={activeModal === "add-garment"}
+            onClose={closeActiveModal}
+            onAddItem={onAddItem}
+          />
+          <ItemModal
+            activeModal={activeModal}
+            card={selectedCard}
+            onClose={closeActiveModal}
+          />
+          <Footer />
+        </div>
       </div>
     </CurrentTemperatureUnitContext.Provider>
   );
