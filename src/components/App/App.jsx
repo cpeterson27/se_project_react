@@ -14,6 +14,7 @@ import {
 import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
 import { Routes, Route } from "react-router-dom";
 import Profile from "../Profile/Profile";
+import { getItems } from "../../utils/api.js";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -85,7 +86,18 @@ function App() {
         setWeatherData(filteredData);
       })
       .catch(console.error);
-  }, []);
+  }
+  , []);
+
+   useEffect(() => {
+   getItems()
+   .then ((data) => {
+    console.log(data);
+    setClothingItems(data);
+   })
+   .catch(console.error);
+   }, []);
+
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
