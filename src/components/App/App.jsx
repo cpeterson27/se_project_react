@@ -14,7 +14,12 @@ import {
 import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
 import { Routes, Route } from "react-router-dom";
 import Profile from "../Profile/Profile";
-import { getItems } from "../../utils/api.js";
+import { getItems, deleteItem } from "../../utils/api.js";
+import { useCallback } from 'react';
+
+
+
+const baseUrl = "http://localhost:3001";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -32,6 +37,14 @@ function App() {
     setcurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
+const handleDeleteItem = (id) => {
+  deleteItem(id)
+  .then(() => {
+    setClothingItems(items => items.filter(item => item._id !== id))
+  })
+  .catch(console.error);
+};
+
   const handleAddClick = () => {
     setActiveModal("add-garment");
   };
@@ -42,30 +55,37 @@ function App() {
   };
 
   const onAddItem = (inputValues) => {
-    // call the fetch function
-    // .then ({data} => {}) inclues all the stuff below
-    const newCardData = {
-      _id: Date.now(),
+    return fetch(`${baseUrl}/items`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
       name: inputValues.name,
       link: inputValues.link,
       weather: inputValues.weather,
-    };
-    //dont use newCardData
-    // The ID will be included in the response data
+    })
+  })
+      .then((res) => {
+        if (!res.ok) {
+        return  Promise.reject(`Error: ${res.status}`);
+        }
+        return res.json();
+      })
+.then((newCardData) => {
     setClothingItems([...clothingItems, newCardData]);
     closeActiveModal();
-    //.catch()
+    })
+    .catch(console.error);
   };
 
-  const closeActiveModal = () => {
+  const closeActiveModal = useCallback(() => {
     setActiveModal("");
-  };
+  }, []);
 
   useEffect(() => {
-    if (!activeModal) return; // stop the effect not to add the listener if there is no active modal
-
+    if (!activeModal) return; 
     const handleEscClose = (e) => {
-      // define the function inside useEffect not to lose the reference on rerendering
       if (e.key === "Escape") {
         closeActiveModal();
       }
@@ -74,10 +94,9 @@ function App() {
     document.addEventListener("keydown", handleEscClose);
 
     return () => {
-      // don't forget to add a clean up function for removing the listener
       document.removeEventListener("keydown", handleEscClose);
     };
-  }, [activeModal]);
+  }, [activeModal, closeActiveModal]);
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -138,6 +157,7 @@ function App() {
             activeModal={activeModal}
             card={selectedCard}
             onClose={closeActiveModal}
+            deleteItem={handleDeleteItem}
           />
           <Footer />
         </div>
