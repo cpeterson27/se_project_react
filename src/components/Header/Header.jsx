@@ -23,18 +23,10 @@ function Header({ handleAddClick, weatherData }) {
           <div className="bar"></div>
         </div>
       </div>
+
       <div className="header__line"></div>
 
-      <Link to="/profile" className="header__link">
-        <div className="header__user-container">
-          <p className="header__username">Terrence Tegegne</p>
-          <img src={avatar} alt="Terrence Tegegne" className="header__avatar" />
-        </div>
-      </Link>
-            <div className="header__line"></div>
-
-              <ToggleSwitch />
-              
+      <ToggleSwitch />
       <button
         onClick={handleAddClick}
         type="button"
@@ -42,7 +34,27 @@ function Header({ handleAddClick, weatherData }) {
       >
         + Add Clothes
       </button>
- <div className="your-items">Your Items</div>
+
+      <div className="your-items">Your Items</div>
+      
+      <Link to="/profile" className="header__link">
+        <div className="header__user-container">
+          <p className="header__username">Terrence Tegegne</p>
+          <img src={avatar} alt="Terrence Tegegne" className="header__avatar" />
+        </div>
+      </Link>
+
+<div className="profile-text">
+  <p className="profile-data">
+Change profile data
+  </p>
+   <p className="log-out">
+    Log out
+  </p>
+</div>
+
+
+      <div className="header__line"></div>
     </header>
   );
 }
