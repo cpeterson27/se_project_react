@@ -37,3 +37,9 @@
     color: #000;
     margin: 40px 0 40px 0
 }
+
+@media screen and (min-width: 375px){
+    .cards__text {
+        display: none;
+    }
+}

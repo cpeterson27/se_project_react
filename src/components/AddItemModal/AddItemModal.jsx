@@ -1,5 +1,5 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useForm } from "../hooks/useForm.js";
+import { useForm } from "../../hooks/useForm.js";
 
 const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
   const defaultValues = {
@@ -38,12 +38,12 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
         />
       </label>
 
-      <label htmlFor="imageUrl" className="modal__label">
+      <label htmlFor="link" className="modal__label">
         Image{" "}
         <input
           type="url"
           className="modal__input"
-          id="imageUrl"
+          id="link"
           name="link"
           placeholder="Image URL"
           value={values.link}

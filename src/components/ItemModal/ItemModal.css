@@ -23,7 +23,7 @@
 .modal__wrap {
   display: flex;
   flex-direction: row;
-  gap: 200px;
+  gap: 150px;
 }
 
 .modal__caption {

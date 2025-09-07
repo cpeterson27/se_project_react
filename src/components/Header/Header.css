@@ -1,62 +1,139 @@
 @font-face {
-    font-family: 'CabinetGrotesk-Bold';
-    src: url('../../assets/fonts/CabinetGrotesk-Bold.woff2') format('woff2'),
-         url('../../assets/fonts/CabinetGrotesk-Bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
+  font-family: "CabinetGrotesk-Bold";
+  src: url("../../assets/fonts/CabinetGrotesk-Bold.woff2") format("woff2"),
+    url("../../assets/fonts/CabinetGrotesk-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
 }
 
 .header {
-    display:flex;
-    align-items: center;
-    padding: 32px 0 28px;
+  display: flex;
+  align-items: center;
+  padding: 32px 0 28px;
 }
 
 .header__logo {
-    margin-right: 24px;
+  margin-right: 24px;
 }
 
 .header__date-and-location {
-    margin: 0;
-    font-family: 'CabinetGrotesk-Bold', sans-serif;
-    font-size: 20px;
-    line-height: 24px;
-    color: #000;
-    font-weight: 700;
+  margin: 0;
+  font-family: "CabinetGrotesk-Bold", sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000;
+  font-weight: 700;
 }
 
 .header__add-clothes-btn {
-    
-    font-family: 'CabinetGrotesk-Bold', sans-serif;
-    font-size: 20px;
-    line-height: 24px;
-    color: #000;
-    font-weight: 700;
-    border: none;
-
+  font-family: "CabinetGrotesk-Bold", sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000;
+  font-weight: 700;
+  border: none;
+  visibility: visible;
 }
 
 .header__user-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .header__username {
-margin: 0;
-font-family: 'CabinetGrotesk-Bold', sans-serif;
-font-size: 20px;
-line-height: 24px;
-color: #000;
-font-weight: 700;
+  margin: 0;
+  font-family: "CabinetGrotesk-Bold", sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000;
+  font-weight: 700;
 }
 
 .header__container {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .header__link {
-    text-decoration: none;
-    color: #000;
+  text-decoration: none;
+  color: #000;
+}
+
+.header__nav-menu {
+  display: none;
+}
+
+.nav__bar-line {
+  display: none;
+}
+
+.header__line {
+    visibility: hidden;
+}
+
+.your-items{
+    display: none;
+}
+
+@media screen and (max-width: 375px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header__date-and-location {
+    font-size: 16px;
+  }
+
+  .header__nav-menu {
+    visibility: visible;
+    width: 44px;
+    height: 44px;
+    background-color: white;
+    border-radius: 10px;
+    background-size: 85% 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    box-shadow: 3px 2px 7px rgba(0, 0, 0, 0.1);
+  }
+
+  .header__nav-menu .bar {
+    visibility: visible;
+    width: 28px;
+    height: 2px;
+    background-color: black;
+    margin: 6px 0;
+    border-radius: 8px;
+  }
+
+  .header__add-clothes-btn {
+   opacity: 60%;
+   justify-content: flex-end;
+   margin-left: auto;
+  }
+
+  .header__username {
+    order: 2;
+  }
+
+  .header__logo {
+    margin-right: 12px;
+    width: 89;
+    height: 40px;
+  }
+
+  .header__line {
+    visibility: visible;
+    width: 343px;
+    height: 2px;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+  }
+
 }

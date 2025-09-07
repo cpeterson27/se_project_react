@@ -6,18 +6,13 @@ import Footer from "../Footer/Footer";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import ItemModal from "../ItemModal/ItemModal";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import {
-  defaultClothingItems,
-  coordinates,
-  APIkey,
-} from "../../utils/constants";
-import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
+import { coordinates, APIkey } from "../../utils/constants";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.jsx";
 import { Routes, Route } from "react-router-dom";
 import Profile from "../Profile/Profile";
 import { getItems, deleteItem } from "../../utils/api.js";
-import { useCallback } from 'react';
-
-
+import { useCallback } from "react";
+import DeleteConfirmationModal from "../DeleteConfirmation/DeleteConfirmation.jsx";
 
 const baseUrl = "http://localhost:3001";
 
@@ -29,21 +24,30 @@ function App() {
   });
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
-
+  const [clothingItems, setClothingItems] = useState([]);
   const [currentTemperatureUnit, setcurrentTemperatureUnit] = useState("F");
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleDeleteRequest = (item) => {
+    setItemToDelete(item);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteItem = (itemId) => {
+    deleteItem(itemId)
+      .then(() => {
+        setClothingItems(clothingItems.filter((item) => item._id !== itemId));
+        setShowDeleteModal(false);
+        setItemToDelete(null);
+        closeActiveModal();
+      })
+      .catch(console.error);
+  };
 
   const handleToggleSwitchChange = () => {
     setcurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
-
-const handleDeleteItem = (id) => {
-  deleteItem(id)
-  .then(() => {
-    setClothingItems(items => items.filter(item => item._id !== id))
-  })
-  .catch(console.error);
-};
 
   const handleAddClick = () => {
     setActiveModal("add-garment");
@@ -56,27 +60,27 @@ const handleDeleteItem = (id) => {
 
   const onAddItem = (inputValues) => {
     return fetch(`${baseUrl}/items`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-      name: inputValues.name,
-      link: inputValues.link,
-      weather: inputValues.weather,
+        name: inputValues.name,
+        link: inputValues.link,
+        weather: inputValues.weather,
+      }),
     })
-  })
       .then((res) => {
         if (!res.ok) {
-        return  Promise.reject(`Error: ${res.status}`);
+          return Promise.reject(`Error: ${res.status}`);
         }
         return res.json();
       })
-.then((newCardData) => {
-    setClothingItems([...clothingItems, newCardData]);
-    closeActiveModal();
-    })
-    .catch(console.error);
+      .then((newCardData) => {
+        setClothingItems([...clothingItems, newCardData]);
+        closeActiveModal();
+      })
+      .catch(console.error);
   };
 
   const closeActiveModal = useCallback(() => {
@@ -84,10 +88,13 @@ const handleDeleteItem = (id) => {
   }, []);
 
   useEffect(() => {
-    if (!activeModal) return; 
     const handleEscClose = (e) => {
       if (e.key === "Escape") {
-        closeActiveModal();
+        if (showDeleteModal) {
+          setShowDeleteModal(false);
+        } else if (activeModal === "preview") {
+          setActiveModal("");
+        }
       }
     };
 
@@ -96,7 +103,7 @@ const handleDeleteItem = (id) => {
     return () => {
       document.removeEventListener("keydown", handleEscClose);
     };
-  }, [activeModal, closeActiveModal]);
+  }, [activeModal, showDeleteModal]);
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -105,17 +112,16 @@ const handleDeleteItem = (id) => {
         setWeatherData(filteredData);
       })
       .catch(console.error);
-  }
-  , []);
+  }, []);
 
-   useEffect(() => {
-   getItems()
-   .then ((data) => {
-    console.log(data);
-    setClothingItems(data);
-   })
-   .catch(console.error);
-   }, []);
+  useEffect(() => {
+    getItems()
+      .then((data) => {
+        console.log(data);
+        setClothingItems(data);
+      })
+      .catch(console.error);
+  }, []);
 
   return (
     <CurrentTemperatureUnitContext.Provider
@@ -133,6 +139,10 @@ const handleDeleteItem = (id) => {
                   weatherData={weatherData}
                   handleCardClick={handleCardClick}
                   clothingItems={clothingItems}
+                  closeActiveModal={closeActiveModal}
+                  handleDeleteItem={handleDeleteItem}
+                  itemToDelete={itemToDelete}
+                  handleDeleteRequest={handleDeleteRequest}
                 />
               }
             />
@@ -154,11 +164,18 @@ const handleDeleteItem = (id) => {
             onAddItem={onAddItem}
           />
           <ItemModal
+            handleDeleteRequest={handleDeleteRequest}
             activeModal={activeModal}
             card={selectedCard}
-            onClose={closeActiveModal}
-            deleteItem={handleDeleteItem}
+            onClose={() => setActiveModal("")}
           />
+          <DeleteConfirmationModal
+            isOpen={showDeleteModal}
+            itemName={itemToDelete?.name}
+            onConfirm={() => handleDeleteItem(itemToDelete._id)}
+            onClose={() => setShowDeleteModal(false)}
+          />
+
           <Footer />
         </div>
       </div>
