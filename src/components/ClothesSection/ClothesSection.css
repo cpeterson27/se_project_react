@@ -24,7 +24,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
-    flex-wrap: wrap;
     margin: 0;
     padding: 0;
   }
