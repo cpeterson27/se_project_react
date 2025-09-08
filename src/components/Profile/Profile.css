@@ -1,4 +1,14 @@
 .profile {
-    display: flex;
+  display: flex;
+}
 
+@media screen and (max-width: 375px) {
+
+   .header__add-clothes-btn{
+    display: none;
+   }
+
+   .add-new {
+    display: none;
+   }
 }

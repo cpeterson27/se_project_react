@@ -13,6 +13,7 @@ import Profile from "../Profile/Profile";
 import { getItems, deleteItem } from "../../utils/api.js";
 import { useCallback } from "react";
 import DeleteConfirmationModal from "../DeleteConfirmation/DeleteConfirmation.jsx";
+import NavModal from "../NavModal/NavModal.jsx";
 
 const baseUrl = "http://localhost:3001";
 
@@ -28,6 +29,11 @@ function App() {
   const [currentTemperatureUnit, setcurrentTemperatureUnit] = useState("F");
   const [itemToDelete, setItemToDelete] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showNavModal, setShowNavModal] = useState(false);
+
+  const handleNavClick = () => {
+    setShowNavModal(true);
+  };
 
   const handleDeleteRequest = (item) => {
     setItemToDelete(item);
@@ -95,6 +101,9 @@ function App() {
         } else if (activeModal === "preview") {
           setActiveModal("");
         }
+        if (showNavModal){
+          setShowNavModal(false);
+        }
       }
     };
 
@@ -103,7 +112,7 @@ function App() {
     return () => {
       document.removeEventListener("keydown", handleEscClose);
     };
-  }, [activeModal, showDeleteModal]);
+  }, [activeModal, showDeleteModal, showNavModal]);
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -129,7 +138,7 @@ function App() {
     >
       <div className="page">
         <div className="page__content">
-          <Header handleAddClick={handleAddClick} weatherData={weatherData} />
+          <Header handleAddClick={handleAddClick} weatherData={weatherData} handleNavClick={handleNavClick}/>
 
           <Routes>
             <Route
@@ -174,6 +183,10 @@ function App() {
             itemName={itemToDelete?.name}
             onConfirm={() => handleDeleteItem(itemToDelete._id)}
             onClose={() => setShowDeleteModal(false)}
+          />
+          <NavModal
+          isOpen={showNavModal}
+          onClose={() => setShowNavModal(false)}
           />
 
           <Footer />

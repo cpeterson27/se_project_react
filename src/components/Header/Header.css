@@ -80,11 +80,20 @@
   display: none;
 }
 
+.text-button__mobile {
+  display: none;
+}
+
+.add-new__mobile{
+  opacity: 60%;
+}
+
 @media screen and (max-width: 375px) {
   .header {
     flex-direction: column;
-    align-items: flex-start;
-  }
+    align-items: stretch;
+    padding-bottom: 20px; 
+   }
 
   .header__date-and-location {
     font-size: 16px;
@@ -101,7 +110,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: 20px;
+    margin-left: auto;
     box-shadow: 3px 2px 7px rgba(0, 0, 0, 0.1);
   }
 
@@ -118,6 +127,7 @@
     opacity: 60%;
     order: 2;
     margin-left: auto;
+    display: contents;
   }
 
   .header__username {
@@ -159,5 +169,21 @@
     flex-direction: column;
     margin-left: 52px;
     font-size: 20px;
+  }
+
+  .text-button__mobile {
+    display: contents;
+    display: flex;
+    width: 343px;
+    justify-content: space-between;
+  }
+
+  .your-items__mobile {
+    margin: 0;
+  }
+
+  .add-new__mobile {
+    margin: 0;
+    border: none;
   }
 }

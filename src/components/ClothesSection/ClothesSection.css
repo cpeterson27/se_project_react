@@ -4,14 +4,28 @@
     opacity: 60%;
 }
 
-.add-new{
+.add-new {
     display:flex;
     gap: 20px;
     margin-left: 40px;
+    font-size: 20px;
+    display: contents;
 }
 
 .clothes__section{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+}
+
+@media screen and (max-width: 375px) {
+
+    .clothes__section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+  }
 }

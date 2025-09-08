@@ -4,7 +4,7 @@ import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.png";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
-function Header({ handleAddClick, weatherData }) {
+function Header({ handleAddClick, weatherData, handleNavClick }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -18,15 +18,16 @@ function Header({ handleAddClick, weatherData }) {
         <p className="header__date-and-location">
           {currentDate}, {weatherData.city}
         </p>
-        <div className="header__nav-menu">
+        <button onClick={handleNavClick} className="header__nav-menu">
           <div className="bar"></div>
           <div className="bar"></div>
-        </div>
+        </button>
       </div>
 
       <div className="header__line"></div>
 
       <ToggleSwitch />
+
       <button
         onClick={handleAddClick}
         type="button"
@@ -35,8 +36,6 @@ function Header({ handleAddClick, weatherData }) {
         + Add Clothes
       </button>
 
-      <div className="your-items">Your Items</div>
-      
       <Link to="/profile" className="header__link">
         <div className="header__user-container">
           <p className="header__username">Terrence Tegegne</p>
@@ -44,17 +43,23 @@ function Header({ handleAddClick, weatherData }) {
         </div>
       </Link>
 
-<div className="profile-text">
-  <p className="profile-data">
-Change profile data
-  </p>
-   <p className="log-out">
-    Log out
-  </p>
-</div>
-
+      <div className="profile-text">
+        <p className="profile-data">Change profile data</p>
+        <p className="log-out">Log out</p>
+      </div>
 
       <div className="header__line"></div>
+
+      <div className="text-button__mobile">
+        <p className="your-items__mobile">Your Items</p>
+        <button
+          className="add-new__mobile"
+          onClick={handleAddClick}
+          type="button"
+        >
+          + Add new
+        </button>
+      </div>
     </header>
   );
 }

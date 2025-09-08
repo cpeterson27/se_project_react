@@ -7,7 +7,6 @@ return (
 <div className="clothes-section">
     <div className="add-new">
         <p>Your Items</p>
-        <button className="add-button">+ Add New</button>
     </div>
     <ul className="clothes__section">
           {clothingItems.map((item) => {

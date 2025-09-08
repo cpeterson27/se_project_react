@@ -45,9 +45,10 @@
   }
 
   .cards__list {
-    display: flex;
+    display: grid;
     gap: 16px;
     flex-wrap: wrap;
+    grid-template-columns: 1fr 1fr;
   }
 
   .card {
@@ -55,4 +56,5 @@
     box-sizing: border-box;
     width: auto;
   }
+  
 }
