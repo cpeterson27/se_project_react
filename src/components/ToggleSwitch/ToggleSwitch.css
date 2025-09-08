@@ -49,7 +49,8 @@ opacity: 0;
 }
 
 @media screen and (max-width: 375px){
-  .toggle-switch{
+.toggle-switch{
+    visibility: hidden;
     display: none;
   }
 }

@@ -1,5 +1,6 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useForm } from "../../hooks/useForm.js";
+import { useState, useEffect } from "react";
 
 const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
   const defaultValues = {
@@ -7,12 +8,31 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
     link: "",
     weather: "",
   };
+
   const { values, handleChange, setValues } = useForm(defaultValues);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  useEffect(() => {
+    if (isOpen) {
+      setSuccessMessage("");
+    }
+  }, [isOpen]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    onAddItem(values);
-    setValues(defaultValues);
+    onAddItem(values)
+      .then(() => {
+        setSuccessMessage("Item submitted successfully!");
+        setTimeout(() => {
+          setValues(defaultValues);
+          setSuccessMessage("");
+          onClose();
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error("Failed to add item:", error);
+        setSuccessMessage("");
+      });
   }
 
   return (
@@ -21,6 +41,7 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      successMessage={successMessage}
     >
       <label htmlFor="name" className="modal__label">
         Name{" "}

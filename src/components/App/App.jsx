@@ -20,13 +20,13 @@ const baseUrl = "http://localhost:3001";
 function App() {
   const [weatherData, setWeatherData] = useState({
     type: "",
-    temp: { F: "Loading..." },
+    temp: { F: "Loading...", C: "Loading..." },
     city: "",
   });
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [clothingItems, setClothingItems] = useState([]);
-  const [currentTemperatureUnit, setcurrentTemperatureUnit] = useState("F");
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [itemToDelete, setItemToDelete] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showNavModal, setShowNavModal] = useState(false);
@@ -52,7 +52,7 @@ function App() {
   };
 
   const handleToggleSwitchChange = () => {
-    setcurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
+    setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
   const handleAddClick = () => {
@@ -83,8 +83,8 @@ function App() {
         return res.json();
       })
       .then((newCardData) => {
-        setClothingItems([...clothingItems, newCardData]);
-        closeActiveModal();
+        setClothingItems([newCardData, ...clothingItems]);
+      
       })
       .catch(console.error);
   };
@@ -113,6 +113,7 @@ function App() {
       document.removeEventListener("keydown", handleEscClose);
     };
   }, [activeModal, showDeleteModal, showNavModal]);
+  
 
   useEffect(() => {
     getWeather(coordinates, APIkey)

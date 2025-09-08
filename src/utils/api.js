@@ -9,16 +9,13 @@ function getItems() {
 
 
 const deleteItem = (id) => {
-  return fetch(`http://localhost:3001/items/${id}`, {
+  return fetch(`${baseUrl}/items/${id}`, {
     method: 'DELETE',
   })
     .then((response) => {
       if (response.ok) {
-        // Handle successful deletion
-        console.log('Item deleted');
         return response;
       } else {
-        // Handle errors
         throw new Error('Failed to delete item');
       }
     })

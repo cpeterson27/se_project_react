@@ -24,7 +24,12 @@ gap: 12px;
 }
 
 .toggle-switch__mobile {
-    display: flex;
     justify-self: center;
     margin-top: 24px;
+    margin-right: 0;
+}
+
+.toggle-switch {
+        visibility: visible;
+        display: block;
 }
