@@ -14,8 +14,7 @@ import { getItems, deleteItem } from "../../utils/api.js";
 import { useCallback } from "react";
 import DeleteConfirmationModal from "../DeleteConfirmation/DeleteConfirmation.jsx";
 import NavModal from "../NavModal/NavModal.jsx";
-
-const baseUrl = "http://localhost:3001";
+import { addItem } from "../../utils/api.js";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -65,26 +64,10 @@ function App() {
   };
 
   const onAddItem = (inputValues) => {
-    return fetch(`${baseUrl}/items`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: inputValues.name,
-        link: inputValues.link,
-        weather: inputValues.weather,
-      }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          return Promise.reject(`Error: ${res.status}`);
-        }
-        return res.json();
-      })
+    return addItem(inputValues)
       .then((newCardData) => {
         setClothingItems([newCardData, ...clothingItems]);
-      
+        closeActiveModal();
       })
       .catch(console.error);
   };
@@ -132,6 +115,8 @@ function App() {
       })
       .catch(console.error);
   }, []);
+
+  
 
   return (
     <CurrentTemperatureUnitContext.Provider
