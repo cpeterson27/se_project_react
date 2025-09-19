@@ -26,7 +26,7 @@
   width: 100%;
   padding: 20px;
   position: relative;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .modal__close {
@@ -53,12 +53,12 @@
 
 .modal__actions {
   display: flex;
+  flex-direction: column;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 24px;
 }
 
 .modal__button {
-  padding: 8px 16px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -68,19 +68,14 @@
 }
 
 .modal__button_cancel {
-  background-color: #e0e0e0;
+  background-color: transparent;
   color: #333;
-}
-
-.modal__button_cancel:hover {
-  background-color: #d5d5d5;
+  cursor: pointer;
+  margin: 0;
 }
 
 .modal__button_delete {
-  background-color: #d9534f;
-  color: #fff;
-}
-
-.modal__button_delete:hover {
-  background-color: #c9302c;
+  background-color: transparent;
+  color: #ff4d00;
+  cursor: pointer;
 }

@@ -3,7 +3,7 @@ import closeIcon from "../../assets/close.svg";
 import avatar from "../../assets/avatar.png";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
-function NavModal({ isOpen, onClose, handleAddClick }) {
+function NavModal({ isOpen, onClose }) {
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
       <div className="modal__content">
@@ -20,15 +20,7 @@ function NavModal({ isOpen, onClose, handleAddClick }) {
               className="header__avatar"
             />
           </div>
-          <div className="add-clothes-btn__mobile">
-          <button
-              onClick={handleAddClick}
-              type="button"
-              className="header__add-clothes-btn-mobile"
-            >
-              + Add Clothes
-            </button>
-            </div>
+        
             <div className="toggle-switch__mobile">
                       <ToggleSwitch />
             </div>

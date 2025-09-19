@@ -86,6 +86,8 @@ function App() {
         }
         if (showNavModal){
           setShowNavModal(false);
+        } else if (activeModal === "add-garment"){
+          setActiveModal("");
         }
       }
     };
@@ -148,6 +150,7 @@ function App() {
                 <Profile
                   handleCardClick={handleCardClick}
                   clothingItems={clothingItems}
+                  handleAddClick={handleAddClick}
                 />
               }
             />

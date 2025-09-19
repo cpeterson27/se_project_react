@@ -1,10 +1,10 @@
 import "./ItemCard.css";
 
 function ItemCard({ item, onCardClick }) {
+console.log('Full item object:', item);
   const handleCardClick = () => {
     onCardClick(item);
   };
-
   return (
     <li className="card">
       <h2 className="card__name">{item.name}</h2>

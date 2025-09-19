@@ -8,6 +8,7 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
     link: "",
     weather: "",
   };
+  
 
   const { values, handleChange, setValues } = useForm(defaultValues);
   const [successMessage, setSuccessMessage] = useState("");

@@ -1,7 +1,5 @@
 .sideBar {
   display: flex;
-  width: 229px;
-  display: contents;
 }
 
 .sidebar__avatar {
@@ -10,8 +8,43 @@
   margin-right: 16px;
 }
 
-@media screen and (max-width: 375px){
-  .sideBar {
-    display: none;
+@media screen and (max-width: 375px) {
+  .sidebar__avatar {
+    width: 56px;
+    height: 56px;
+    margin-top: 20px;
+  }
+
+  .sidebar__username {
+    font-size: 24px;
+    margin: 20px 0 12px 0;
+  }
+
+  .profile-data {
+    margin-bottom: 8px;
+  }
+
+  .sidebar__username::before {
+    content: "";
+    display: block;
+    height: 1px;
+    background-color: #ccc;
+    width: 343px;
+    position: absolute;
+    left: 20px; 
+    right: 10px; 
+    top: 82px;
+  }
+
+  .log-out::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background-color: #ccc;
+    width: 343px;
+    position: absolute;
+    left: 20px; 
+    right: 10px; 
+    top: 200px;
   }
 }

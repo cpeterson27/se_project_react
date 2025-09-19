@@ -10,7 +10,6 @@
     font-family: 'CabinetGrotesk-Bold', sans-serif;
     font-size: 14px;
     mix-blend-mode: multiply;
-    visibility: visible;
 }
 
 .toggle-switch__checkbox {
@@ -46,11 +45,4 @@ opacity: 0;
 
 .toggle-switch__checkbox:checked ~ .toggle-switch__circle {
     left: 28px;
-}
-
-@media screen and (max-width: 375px){
-.toggle-switch{
-    visibility: hidden;
-    display: none;
-  }
 }

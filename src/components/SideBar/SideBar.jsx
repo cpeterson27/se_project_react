@@ -5,9 +5,16 @@ function SideBar() {
 
 return (
 <div className="sideBar">
+    <div>
 <img className="sidebar__avatar" src={avatar} alt="Default avatar" />
-<p className="sidebar__username">Terrence Tegegne</p>
 </div>
+<div>
+<p className="sidebar__username">Terrence Tegegne</p>
+<p className="profile-data">Change profile data</p>
+<p className="log-out">Log out</p>
+</div>
+</div>
+
 );
 }
 

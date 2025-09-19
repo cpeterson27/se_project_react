@@ -17,11 +17,11 @@ function DeleteConfirmationModal({ isOpen, onClose, onConfirm, itemName }) {
         </div>
 
         <div className="modal__actions">
+           <button onClick={onConfirm} className="modal__button modal__button_delete">
+            Yes, delete item
+          </button>
           <button onClick={onClose} className="modal__button modal__button_cancel">
             Cancel
-          </button>
-          <button onClick={onConfirm} className="modal__button modal__button_delete">
-            Yes, delete item
           </button>
         </div>
       </div>

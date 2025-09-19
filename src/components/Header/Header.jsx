@@ -24,8 +24,6 @@ function Header({ handleAddClick, weatherData, handleNavClick }) {
         </button>
       </div>
 
-      <div className="header__line"></div>
-
       <ToggleSwitch />
 
       <button
@@ -42,24 +40,6 @@ function Header({ handleAddClick, weatherData, handleNavClick }) {
           <img src={avatar} alt="Terrence Tegegne" className="header__avatar" />
         </div>
       </Link>
-
-      <div className="profile-text">
-        <p className="profile-data">Change profile data</p>
-        <p className="log-out">Log out</p>
-      </div>
-
-      <div className="header__line"></div>
-
-      <div className="text-button__mobile">
-        <p className="your-items__mobile">Your Items</p>
-        <button
-          className="add-new__mobile"
-          onClick={handleAddClick}
-          type="button"
-        >
-          + Add new
-        </button>
-      </div>
     </header>
   );
 }
