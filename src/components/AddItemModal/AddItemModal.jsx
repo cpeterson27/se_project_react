@@ -8,7 +8,6 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
     link: "",
     weather: "",
   };
-  
 
   const { values, handleChange, setValues } = useForm(defaultValues);
   const [successMessage, setSuccessMessage] = useState("");
@@ -24,15 +23,11 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
     onAddItem(values)
       .then(() => {
         setSuccessMessage("Item submitted successfully!");
-        setTimeout(() => {
-          setValues(defaultValues);
-          setSuccessMessage("");
-          onClose();
-        }, 3000);
+        setValues(defaultValues);
+        onClose();
       })
       .catch((error) => {
         console.error("Failed to add item:", error);
-        setSuccessMessage("");
       });
   }
 
