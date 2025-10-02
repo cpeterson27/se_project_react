@@ -1,7 +1,7 @@
 import avatar from "../../assets/avatar.png";
 import "./Sidebar.css";
 
-function SideBar() {
+function SideBar({handleProfileClick, name }) {
 
 return (
 <div className="sideBar">
@@ -9,9 +9,11 @@ return (
 <img className="sidebar__avatar" src={avatar} alt="Default avatar" />
 </div>
 <div>
-<p className="sidebar__username">Terrence Tegegne</p>
-<p className="profile-data">Change profile data</p>
-<p className="log-out">Log out</p>
+<p className="sidebar__username">{ name }</p>
+<div className="sidebar__buttons">
+<button type ="button" onClick={handleProfileClick} className="profile-data">Change profile data</button>
+<button type="button" className="log-out">Log out</button>
+</div>
 </div>
 </div>
 

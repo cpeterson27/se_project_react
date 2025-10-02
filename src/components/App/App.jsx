@@ -14,7 +14,8 @@ import { getItems, deleteItem } from "../../utils/api.js";
 import { useCallback } from "react";
 import DeleteConfirmationModal from "../DeleteConfirmation/DeleteConfirmation.jsx";
 import NavModal from "../NavModal/NavModal.jsx";
-import { addItem } from "../../utils/api.js";
+import { addItem, getUser, updateUser } from "../../utils/api.js";
+import ProfileModal from "../ProfileModal/ProfileModal.jsx";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -29,6 +30,10 @@ function App() {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showNavModal, setShowNavModal] = useState(false);
+  const [email, setEmail] = useState("");
+  const [successfulMessage, setSuccessfulMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [name, setName] = useState("");
 
   const handleNavClick = () => {
     setShowNavModal(true);
@@ -54,6 +59,10 @@ function App() {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
+  const handleProfileClick = () => {
+    setActiveModal("profile-data");
+  };
+
   const handleAddClick = () => {
     setActiveModal("add-garment");
   };
@@ -61,6 +70,13 @@ function App() {
   const handleCardClick = (card) => {
     setActiveModal("preview");
     setSelectedCard(card);
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
   };
 
   const onAddItem = (inputValues) => {
@@ -84,9 +100,9 @@ function App() {
         } else if (activeModal === "preview") {
           setActiveModal("");
         }
-        if (showNavModal){
+        if (showNavModal) {
           setShowNavModal(false);
-        } else if (activeModal === "add-garment"){
+        } else if (activeModal === "add-garment") {
           setActiveModal("");
         }
       }
@@ -98,7 +114,6 @@ function App() {
       document.removeEventListener("keydown", handleEscClose);
     };
   }, [activeModal, showDeleteModal, showNavModal]);
-  
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -118,7 +133,32 @@ function App() {
       .catch(console.error);
   }, []);
 
-  
+  useEffect(() => {
+    console.log("Fetching user data...");
+    getUser()
+      .then((data) => {
+        setName(data.name);
+        setEmail(data.email);
+      })
+      .catch(console.error);
+  }, []);
+
+  const handleonSave = (evt) => {
+    evt.preventDefault();
+    return updateUser(name, email)
+      .then((data) => {
+        setSuccessfulMessage("Saved!");
+        setName(data.name);
+        setEmail(data.email);
+        setTimeout(() => {
+          closeActiveModal();
+        }, 2000);
+      })
+      .catch((err) => {
+        console.error("Failed to save", err);
+        setErrorMessage("Failed to save");
+      });
+  };
 
   return (
     <CurrentTemperatureUnitContext.Provider
@@ -126,7 +166,12 @@ function App() {
     >
       <div className="page">
         <div className="page__content">
-          <Header handleAddClick={handleAddClick} weatherData={weatherData} handleNavClick={handleNavClick}/>
+          <Header
+            handleAddClick={handleAddClick}
+            weatherData={weatherData}
+            handleNavClick={handleNavClick}
+            name={name}
+          />
 
           <Routes>
             <Route
@@ -151,6 +196,8 @@ function App() {
                   handleCardClick={handleCardClick}
                   clothingItems={clothingItems}
                   handleAddClick={handleAddClick}
+                  handleProfileClick={handleProfileClick}
+                  name={name}
                 />
               }
             />
@@ -174,10 +221,43 @@ function App() {
             onClose={() => setShowDeleteModal(false)}
           />
           <NavModal
-          isOpen={showNavModal}
-          onClose={() => setShowNavModal(false)}
+            isOpen={showNavModal}
+            onClose={() => setShowNavModal(false)}
           />
-
+          <ProfileModal
+            title="Edit Profile"
+            name={name}
+            isOpen={activeModal === "profile-data"}
+            onClose={closeActiveModal}
+            buttonText="Save"
+            successfulMessage={successfulMessage}
+            handleonSave={handleonSave}
+            email={email}
+            errorMessage={errorMessage}
+          >
+            <label className="profile__modal">Name</label>
+            <div className="profile__name-container">
+              <input
+                value={name}
+                onChange={handleNameChange}
+                required
+                type="text"
+                name="name"
+                placeholder="Name"
+                className="profile__input"
+              />
+            </div>
+            <label className="profile__address">Email</label>
+            <input
+              value={email}
+              onChange={handleEmailChange}
+              required
+              type="email"
+              name="email"
+              placeholder="Email address"
+              className="profile__email"
+            />
+          </ProfileModal>
           <Footer />
         </div>
       </div>

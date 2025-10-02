@@ -24,8 +24,40 @@ const addItem = (inputValues) => {
   }).then(checkResponse);
 };
 
+const createUser = (name, email) => {
+  return fetch(`${baseUrl}/users/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      email: email,
+    }),
+  }).then(checkResponse);
+};
+
+const getUser = () => {
+  return fetch(`${baseUrl}/users/me`, {
+    method: "GET",
+  }).then(checkResponse);
+};
+
+const updateUser = (name, email) => {
+  return fetch(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      email: email,
+    }),
+  }).then(checkResponse);
+};
+
 const checkResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 };
 
-export { deleteItem, getItems, addItem, checkResponse };
+export { deleteItem, getItems, addItem, checkResponse, createUser, getUser, updateUser };

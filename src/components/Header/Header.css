@@ -85,16 +85,40 @@
   display: none;
 }
 
-.add-new__mobile{
+.add-new__mobile {
   opacity: 60%;
+}
+
+.profile-data {
+  margin-bottom: 8px;
+  margin-top: 0;
+  border: none;
+  font-size: 15px;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: "CabinetGrotesk-Medium", sans-serif;
+  font-weight: 500;
+}
+
+.log-out {
+    margin-top: 0;
+    font-size: 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: "CabinetGrotesk-Medium", sans-serif;
+    font-weight: 500;
+    flex-direction: column;
 }
 
 @media screen and (max-width: 375px) {
   .header {
     flex-direction: column;
     align-items: stretch;
-    padding-bottom: 20px; 
-   }
+    padding-bottom: 20px;
+  }
 
   .header__date-and-location {
     font-size: 16px;
@@ -147,14 +171,22 @@
 
   .log-out {
     opacity: 60%;
-    margin-top: 8px;
-    margin-bottom: 0;
+    margin-top: 0;
+    font-size: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: "CabinetGrotesk-Medium", sans-serif;
+    font-weight: 500;
   }
 
   .profile-data {
     opacity: 60%;
     margin-bottom: 0px;
     margin-top: 0;
+    font-size: 20px;
+    padding: 0;
   }
 
   .profile-text {
@@ -162,25 +194,24 @@
     display: flex;
     flex-direction: column;
     font-size: 20px;
-    margin-left:76px;
+    margin-left: 76px;
   }
 
   .header__add-clothes-btn {
-    display:none;
+    display: none;
   }
 }
 
-
-@media screen and (max-width:375px) {
-    .toggle-switch {
-      display: none;
-    }
-
-    .header__user-container {
-      display:none;
-    }
-
-    .header {
-      padding-top: 18px;
-    }
+@media screen and (max-width: 375px) {
+  .toggle-switch {
+    display: none;
   }
+
+  .header__user-container {
+    display: none;
+  }
+
+  .header {
+    padding-top: 18px;
+  }
+}
