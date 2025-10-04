@@ -46,3 +46,9 @@ opacity: 0;
 .toggle-switch__checkbox:checked ~ .toggle-switch__circle {
     left: 28px;
 }
+
+@media screen and ( max-width: 375px ) {
+.toggle-switch {
+margin:0;
+}
+}

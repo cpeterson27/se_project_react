@@ -223,6 +223,8 @@ function App() {
           <NavModal
             isOpen={showNavModal}
             onClose={() => setShowNavModal(false)}
+            name={name}
+            handleAddClick={handleAddClick}
           />
           <ProfileModal
             title="Edit Profile"

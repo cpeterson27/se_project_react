@@ -102,15 +102,15 @@
 }
 
 .log-out {
-    margin-top: 0;
-    font-size: 15px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    padding: 0;
-    font-family: "CabinetGrotesk-Medium", sans-serif;
-    font-weight: 500;
-    flex-direction: column;
+  margin-top: 0;
+  font-size: 15px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: "CabinetGrotesk-Medium", sans-serif;
+  font-weight: 500;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 375px) {
@@ -200,12 +200,6 @@
   .header__add-clothes-btn {
     display: none;
   }
-}
-
-@media screen and (max-width: 375px) {
-  .toggle-switch {
-    display: none;
-  }
 
   .header__user-container {
     display: none;
@@ -214,4 +208,8 @@
   .header {
     padding-top: 18px;
   }
+
+  .header .toggle-switch {
+        display: none;
+    }
 }

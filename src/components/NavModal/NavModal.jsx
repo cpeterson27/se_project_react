@@ -2,8 +2,9 @@ import "./NavModal.css";
 import closeIcon from "../../assets/close.svg";
 import avatar from "../../assets/avatar.png";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import { Link } from "react-router-dom";
 
-function NavModal({ isOpen, onClose }) {
+function NavModal({ isOpen, onClose, name, handleAddClick }) {
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
       <div className="modal__content">
@@ -13,17 +14,29 @@ function NavModal({ isOpen, onClose }) {
 
         <div className="nav__modal">
           <div className="header__user-container-mobile">
-            <p className="header__username-mobile">Terrence Tegegne</p>
-            <img
-              src={avatar}
-              alt="Terrence Tegegne"
-              className="header__avatar"
-            />
+            <p className="header__username-mobile">{name}</p>
+            <Link
+              to="/profile"
+              className="header__link-mobile"
+              onClick={onClose}
+            >
+              <img src={avatar} alt={name} className="header__avatar" />
+            </Link>
           </div>
-        
-            <div className="toggle-switch__mobile">
-                      <ToggleSwitch />
-            </div>
+          <div>
+            <button
+              onClick={() => {
+                onClose();
+                handleAddClick();
+              }}
+              type="button"
+              className="nav__add-clothes-btn"
+            >
+              + Add Clothes
+            </button>
+          </div>
+  <ToggleSwitch />
+
         </div>
       </div>
     </div>

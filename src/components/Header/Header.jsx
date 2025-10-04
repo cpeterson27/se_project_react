@@ -24,7 +24,7 @@ function Header({ handleAddClick, weatherData, handleNavClick, name }) {
         </button>
       </div>
 
-      <ToggleSwitch />
+  <ToggleSwitch />
 
       <button
         onClick={handleAddClick}
