@@ -41,6 +41,17 @@
   visibility: visible;
 }
 
+.heart__button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  color: red;
+}
+
 @media screen and (max-width: 375px) {
   .cards__text {
     display: none;
