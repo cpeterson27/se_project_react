@@ -34,6 +34,7 @@ function App() {
   const [successfulMessage, setSuccessfulMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [name, setName] = useState("");
+  const [avatar, setAvatar] = useState("");
 
   const handleNavClick = () => {
     setShowNavModal(true);
@@ -77,6 +78,9 @@ function App() {
   };
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+  };
+   const handleAvatarChange = (e) => {
+    setAvatar(e.target.value);
   };
 
   const onAddItem = (inputValues) => {
@@ -139,17 +143,19 @@ function App() {
       .then((data) => {
         setName(data.name);
         setEmail(data.email);
+        setAvatar(data.avatar)
       })
       .catch(console.error);
   }, []);
 
   const handleonSave = (evt) => {
     evt.preventDefault();
-    return updateUser(name, email)
+    return updateUser(name, email, avatar)
       .then((data) => {
         setSuccessfulMessage("Saved!");
         setName(data.name);
         setEmail(data.email);
+        setAvatar(data.avatar)
         setTimeout(() => {
           closeActiveModal();
         }, 2000);
@@ -171,6 +177,7 @@ function App() {
             weatherData={weatherData}
             handleNavClick={handleNavClick}
             name={name}
+            avatar={avatar}
           />
 
           <Routes>
@@ -198,6 +205,7 @@ function App() {
                   handleAddClick={handleAddClick}
                   handleProfileClick={handleProfileClick}
                   name={name}
+                  avatar={avatar}
                 />
               }
             />
@@ -225,6 +233,7 @@ function App() {
             onClose={() => setShowNavModal(false)}
             name={name}
             handleAddClick={handleAddClick}
+            avatar={avatar}
           />
           <ProfileModal
             title="Edit Profile"
@@ -246,6 +255,18 @@ function App() {
                 type="text"
                 name="name"
                 placeholder="Name"
+                className="profile__input"
+              />
+            </div>
+            <label className="profile__modal">Avatar URL</label>
+            <div className="profile__avatar-container">
+              <input
+                value={avatar}
+                onChange={handleAvatarChange}
+                required
+                type="url"
+                name="avatar"
+                placeholder="Avatar URL"
                 className="profile__input"
               />
             </div>

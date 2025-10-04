@@ -1,10 +1,10 @@
 import "./NavModal.css";
 import closeIcon from "../../assets/close.svg";
-import avatar from "../../assets/avatar.png";
+import defaultAvatar from "../../assets/avatar.png";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom";
 
-function NavModal({ isOpen, onClose, name, handleAddClick }) {
+function NavModal({ isOpen, onClose, name, handleAddClick, avatar }) {
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
       <div className="modal__content">
@@ -20,7 +20,7 @@ function NavModal({ isOpen, onClose, name, handleAddClick }) {
               className="header__link-mobile"
               onClick={onClose}
             >
-              <img src={avatar} alt={name} className="header__avatar" />
+              <img src={avatar || defaultAvatar} alt={name} className="header__avatar" />
             </Link>
           </div>
           <div>

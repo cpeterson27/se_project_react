@@ -1,12 +1,12 @@
-import avatar from "../../assets/avatar.png";
+import defaultAvatar from "../../assets/avatar.png";
 import "./Sidebar.css";
 
-function SideBar({handleProfileClick, name }) {
+function SideBar({handleProfileClick, name, avatar }) {
 
 return (
 <div className="sideBar">
     <div>
-<img className="sidebar__avatar" src={avatar} alt="Default avatar" />
+<img className="sidebar__avatar" src={avatar || defaultAvatar} alt="User avatar" />
 </div>
 <div>
 <p className="sidebar__username">{ name }</p>

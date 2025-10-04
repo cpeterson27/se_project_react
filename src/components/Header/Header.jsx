@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/logo.svg";
-import avatar from "../../assets/avatar.png";
+import defaultAvatar from "../../assets/avatar.png";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
-function Header({ handleAddClick, weatherData, handleNavClick, name }) {
+function Header({ handleAddClick, weatherData, handleNavClick, name, avatar }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -37,7 +37,7 @@ function Header({ handleAddClick, weatherData, handleNavClick, name }) {
       <Link to="/profile" className="header__link">
         <div className="header__user-container">
           <p className="header__username">{name}</p>
-          <img src={avatar} alt="Terrence Tegegne" className="header__avatar" />
+          <img src={avatar || defaultAvatar} alt="Terrence Tegegne" className="header__avatar" />
         </div>
       </Link>
     </header>
