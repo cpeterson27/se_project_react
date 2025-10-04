@@ -147,7 +147,14 @@ function App() {
       })
       .catch(console.error);
   }, []);
-
+const handleLogout = () => {
+    // Reset user-specific state to default/empty values
+    setName("");
+    setEmail("");
+    setAvatar("");
+    setSuccessfulMessage("");
+    setErrorMessage("");
+};
   const handleonSave = (evt) => {
     evt.preventDefault();
     return updateUser(name, email, avatar)
@@ -206,6 +213,7 @@ function App() {
                   handleProfileClick={handleProfileClick}
                   name={name}
                   avatar={avatar}
+                  handleLogout={handleLogout}
                 />
               }
             />
