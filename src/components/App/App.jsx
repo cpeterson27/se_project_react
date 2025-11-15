@@ -11,9 +11,10 @@ import DeleteConfirmationModal from '../DeleteConfirmation/DeleteConfirmation';
 import NavModal from '../NavModal/NavModal';
 import ProfileModal from '../ProfileModal/ProfileModal';
 import Profile from '../Profile/Profile';
+import { Navigate } from 'react-router-dom';
 
 import { getWeather, filterWeatherData } from '../../utils/weatherApi';
-import { coordinates, APIkey } from '../../utils/constants';
+import { coordinates, apikey } from '../../utils/constants';
 import {
   getItems,
   deleteItem,
@@ -22,6 +23,8 @@ import {
   updateUser,
   loginUser,
   createUser,
+  likeItem,
+  unlikeItem,
 } from '../../utils/api';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext.jsx';
@@ -162,6 +165,23 @@ function App() {
     navigate('/');
   };
 
+  const handleCardLike = ({ id, isLiked }) => {
+    const token = localStorage.getItem('jwt');
+    if (!token) {
+      return Promise.reject('You muse be logged in to like items');
+    }
+
+    const action = isLiked ? unlikeItem(id) : likeItem(id);
+
+    return action
+      .then((updatedCard) => {
+        setClothingItems((cards) =>
+          cards.map((item) => (item._id === updatedCard._id ? updatedCard : item))
+      );
+    })
+      .catch(console.error);
+  };
+
   useEffect(() => {
     const handleEscClose = (e) => {
       if (e.key === 'Escape') {
@@ -185,7 +205,7 @@ function App() {
   }, [activeModal, showDeleteModal, showNavModal]);
 
   useEffect(() => {
-    getWeather(coordinates, APIkey)
+    getWeather(coordinates, apikey)
       .then((data) => {
         const filteredData = filterWeatherData(data);
         setWeatherData(filteredData);
@@ -243,12 +263,14 @@ function App() {
                     clothingItems={clothingItems}
                     handleDeleteRequest={handleDeleteRequest}
                     closeActiveModal={closeActiveModal}
+                    onCardLike={handleCardLike}
                   />
                 }
               />
               <Route
                 path="/profile"
                 element={
+                  isLoggedIn ? (
                   <Profile
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
@@ -256,7 +278,11 @@ function App() {
                     handleProfileClick={() => setActiveModal('profile-data')}
                     handleLogout={handleLogout}
                     currentUser={currentUser}
+                    onCardLike={handleCardLike}
                   />
+                  ) : (
+                    <Navigate to='/' replace />
+                  )
                 }
               />
             </Routes>

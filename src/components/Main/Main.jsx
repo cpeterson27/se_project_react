@@ -15,19 +15,9 @@ function Main({
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   const userContext = useContext(CurrentUserContext);
   const currentUser = userContext?.currentUser;
-  const isLoggedIn = userContext?.isLoggedIn;
-
-  if (!isLoggedIn) {
-    return (
-      <main className="main">
-        <p>Please login to see clothing recommendations</p>
-      </main>
-    );
-  }
 
   return (
     <main className="main">
-      {/* Use currentUser here so it's not unused */}
       <p className="welcome">Welcome, {currentUser?.name || "user"}!</p>
 
       <WeatherCard weatherData={weatherData} />

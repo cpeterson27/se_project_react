@@ -2,15 +2,14 @@ import ClothesSection from "../ClothesSection/ClothesSection";
 import SideBar from "../SideBar/SideBar";
 import "./Profile.css";
 
-
-
 function Profile({ 
   handleCardClick, 
   clothingItems, 
   handleAddClick, 
   handleProfileClick, 
   handleLogout,
-  currentUser
+  currentUser,
+  onCardLike
  }) {
   return (
     <div className="profile">
@@ -27,6 +26,7 @@ function Profile({
           handleAddClick={handleAddClick}
           handleCardClick={handleCardClick}
           clothingItems={clothingItems}
+          onCardLike={onCardLike}
         />
       </section>
     </div>

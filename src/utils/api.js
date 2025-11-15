@@ -4,6 +4,28 @@ function getItems() {
   return fetch(`${baseUrl}/items`).then(checkResponse);
 }
 
+const likeItem = (id) => {
+  const token = localStorage.getItem("jwt");
+  return fetch(`${baseUrl}/items/likes/${id}`, {
+    method: "PUT",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  }).then(checkResponse);
+};
+
+const unlikeItem = (id) => {
+  const token = localStorage.getItem("jwt");
+  return fetch(`${baseUrl}/items/likes/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  }).then(checkResponse);
+};
+
 const deleteItem = (id) => {
   const token = localStorage.getItem("jwt");
   return fetch(`${baseUrl}/items/${id}`, {
@@ -80,4 +102,4 @@ const checkResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 };
 
-export { deleteItem, getItems, addItem, checkResponse, createUser, getUser, updateUser, loginUser };
+export { deleteItem, unlikeItem, likeItem, getItems, addItem, checkResponse, createUser, getUser, updateUser, loginUser };

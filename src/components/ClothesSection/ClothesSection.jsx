@@ -1,38 +1,36 @@
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ItemCard from "../ItemCard/ItemCard";
-import "./ClothesSection.css"; 
+import "./ClothesSection.css";
 
-function ClothesSection ( {handleCardClick, clothingItems, handleAddClick} ) {
+function ClothesSection({ handleAddClick, handleCardClick, clothingItems, onCardLike }) {
+  const { currentUser } = useContext(CurrentUserContext);
 
-return (
-<div className="clothes__section-list">
+  // Filter to show only items owned by current user
+  const userItems = clothingItems.filter((item) => item.owner === currentUser?._id);
 
-  <div className="clothes__section-text">
-    <div className="your-items">
-        <p>Your Items</p>
+  return (
+    <div className="clothes__section">
+      <div className="clothes__header">
+        <p className="clothes__title">Your items</p>
+        <button onClick={handleAddClick} className="clothes__add-btn">
+          + Add new
+        </button>
+      </div>
+      <ul className="clothes__list">
+        {userItems.map((item) => {
+          return (
+            <ItemCard
+              key={item._id}
+              item={item}
+              onCardClick={handleCardClick}
+              onCardLike={onCardLike}
+            />
+          );
+        })}
+      </ul>
     </div>
-     <button
-        onClick={handleAddClick}
-        type="button"
-        className="add-clothes-btn"
-      >
-        + Add new
-      </button>
-</div>
-      
-    <ul className="clothes__section">
-          {clothingItems.map((item) => {
-              return (
-                <ItemCard
-                  key={item._id}
-                  item={item}
-                  onCardClick={handleCardClick}
-                />
-              );
-            })}
-        </ul>
-</div>
-);
-
+  );
 }
 
-export default ClothesSection
+export default ClothesSection;

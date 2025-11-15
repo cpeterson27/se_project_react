@@ -211,4 +211,4 @@ export const defaultClothingItems = [
     longitude: -96.0755144452237,
   };
 
-  export const APIkey = "bcfd6b2bf8fff10f5294c961cdb90d72";
+  export const apikey = "bcfd6b2bf8fff10f5294c961cdb90d72";
