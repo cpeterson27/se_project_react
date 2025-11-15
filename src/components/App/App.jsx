@@ -176,9 +176,11 @@ function App() {
     return action
       .then((updatedCard) => {
         setClothingItems((cards) =>
-          cards.map((item) => (item._id === updatedCard._id ? updatedCard : item))
-      );
-    })
+          cards.map((item) =>
+            item._id === updatedCard._id ? updatedCard : item,
+          ),
+        );
+      })
       .catch(console.error);
   };
 
@@ -271,17 +273,17 @@ function App() {
                 path="/profile"
                 element={
                   isLoggedIn ? (
-                  <Profile
-                    handleCardClick={handleCardClick}
-                    clothingItems={clothingItems}
-                    handleAddClick={handleAddClick}
-                    handleProfileClick={() => setActiveModal('profile-data')}
-                    handleLogout={handleLogout}
-                    currentUser={currentUser}
-                    onCardLike={handleCardLike}
-                  />
+                    <Profile
+                      handleCardClick={handleCardClick}
+                      clothingItems={clothingItems}
+                      handleAddClick={handleAddClick}
+                      handleProfileClick={() => setActiveModal('profile-data')}
+                      handleLogout={handleLogout}
+                      currentUser={currentUser}
+                      onCardLike={handleCardLike}
+                    />
                   ) : (
-                    <Navigate to='/' replace />
+                    <Navigate to="/" replace />
                   )
                 }
               />
@@ -321,9 +323,12 @@ function App() {
               handleOnSave={handleOnSave}
               errorMessage={errorMessage}
             >
-              <label className="profile__modal">Name</label>
+              <label className="profile__modal" htmlFor="profile-name">
+                Name
+              </label>
               <div className="profile__name-container">
                 <input
+                  id="profile-name"
                   value={name}
                   onChange={handleNameChange}
                   required
@@ -333,9 +338,10 @@ function App() {
                   className="profile__input"
                 />
               </div>
-              <label className="profile__modal">Avatar URL</label>
+              <label className="profile__modal" htmlFor="profile-avatar">Avatar URL</label>
               <div className="profile__avatar-container">
                 <input
+                id="profile-avatar"
                   value={avatar}
                   onChange={handleAvatarChange}
                   required

@@ -8,7 +8,7 @@ const ProfileModal = ({
   name,
   isOpen,
   onClose,
-  handleonSave,
+  handleOnSave,
   successfulMessage,
   errorMessage
 }) => {
@@ -21,7 +21,7 @@ const ProfileModal = ({
           <img src={closeIcon} alt="Close" />
         </button>
         <form
-          onSubmit={handleonSave}
+          onSubmit={handleOnSave}
           className="modal__form"
           name={name}
           noValidate
