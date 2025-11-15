@@ -1,8 +1,9 @@
+import { useContext } from "react";
 import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
-import { useContext } from "react";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Main({
   weatherData,
@@ -12,31 +13,41 @@ function Main({
   closeActiveModal,
 }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+  const userContext = useContext(CurrentUserContext);
+  const currentUser = userContext?.currentUser;
+  const isLoggedIn = userContext?.isLoggedIn;
+
+  if (!isLoggedIn) {
+    return (
+      <main className="main">
+        <p>Please login to see clothing recommendations</p>
+      </main>
+    );
+  }
 
   return (
-    <main>
+    <main className="main">
+      {/* Use currentUser here so it's not unused */}
+      <p className="welcome">Welcome, {currentUser?.name || "user"}!</p>
+
       <WeatherCard weatherData={weatherData} />
       <section className="cards">
         <p className="cards__text">
-          Today is {weatherData.temp[currentTemperatureUnit]} &deg;
+          Today is {weatherData.temp[currentTemperatureUnit]} &deg;{" "}
           {currentTemperatureUnit} / You may want to wear:
         </p>
         <ul className="cards__list">
           {clothingItems
-            .filter((item) => {
-              return item.weather === weatherData.type;
-            })
-            .map((item) => {
-              return (
-                <ItemCard
-                  key={item._id}
-                  item={item}
-                  onCardClick={handleCardClick}
-                  onDeleteRequest={handleDeleteRequest}
-                  onClose={closeActiveModal}
-                />
-              );
-            })}
+            .filter((item) => item.weather === weatherData.type)
+            .map((item) => (
+              <ItemCard
+                key={item._id}
+                item={item}
+                onCardClick={handleCardClick}
+                onDeleteRequest={handleDeleteRequest}
+                onClose={closeActiveModal}
+              />
+            ))}
         </ul>
       </section>
     </main>
@@ -44,3 +55,5 @@ function Main({
 }
 
 export default Main;
+
+

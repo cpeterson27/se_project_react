@@ -16,18 +16,20 @@ console.log('Full item object:', item);
 
   return (
     <li className="card">
+        <div className="card__image-container">
+    <img
+      onClick={handleCardClick}
+      className="card__image"
+      src={item.imageUrl}
+      alt={item.name}
+    />
+    <div className="card__header">
       <h2 className="card__name">{item.name}</h2>
-      <img
-        onClick={handleCardClick}
-        className="card__image"
-        src={item.link}
-        alt={item.name}
-      />
-      <button
-      onClick={handleLikeClick}
-      className="heart__button"
-      > {liked ? <AiFillHeart /> : <AiOutlineHeart />}
-</button>
+      <button onClick={handleLikeClick} className="heart__button">
+        {liked ? <AiFillHeart /> : <AiOutlineHeart />}
+      </button>
+    </div>
+  </div>
     </li>
   );
 }

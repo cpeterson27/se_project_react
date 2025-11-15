@@ -1,11 +1,11 @@
 .profile {
   display: flex;
   justify-content: space-between;
+  min-height: 100vh;
 }
-
 
 @media screen and (max-width: 375px) {
-.profile {
-  display:block;
-}
+  .profile {
+    display: block;
+  }
 }

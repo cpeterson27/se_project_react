@@ -10,9 +10,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
-    "server": "json-server --watch db.json --id _id --port 3001",
-    "dev:both": "npm run server & npm run dev"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "mongoose": "^8.18.2",

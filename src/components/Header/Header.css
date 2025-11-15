@@ -1,7 +1,8 @@
 @font-face {
-  font-family: "CabinetGrotesk-Bold";
-  src: url("../../assets/fonts/CabinetGrotesk-Bold.woff2") format("woff2"),
-    url("../../assets/fonts/CabinetGrotesk-Bold.woff") format("woff");
+  font-family: 'CabinetGrotesk-Bold';
+  src:
+    url('../../assets/fonts/CabinetGrotesk-Bold.woff2') format('woff2'),
+    url('../../assets/fonts/CabinetGrotesk-Bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
 }
@@ -17,9 +18,13 @@
   cursor: pointer;
 }
 
+.header__logo:hover {
+  opacity: 0.8;
+}
+
 .header__date-and-location {
   margin: 0;
-  font-family: "CabinetGrotesk-Bold", sans-serif;
+  font-family: 'CabinetGrotesk-Bold', sans-serif;
   font-size: 20px;
   line-height: 24px;
   color: #000;
@@ -27,7 +32,7 @@
 }
 
 .header__add-clothes-btn {
-  font-family: "CabinetGrotesk-Bold", sans-serif;
+  font-family: 'CabinetGrotesk-Bold', sans-serif;
   font-size: 20px;
   line-height: 24px;
   color: #000;
@@ -47,7 +52,7 @@
 
 .header__username {
   margin: 0;
-  font-family: "CabinetGrotesk-Bold", sans-serif;
+  font-family: 'CabinetGrotesk-Bold', sans-serif;
   font-size: 20px;
   line-height: 24px;
   color: #000;
@@ -97,7 +102,7 @@
   background: none;
   cursor: pointer;
   padding: 0;
-  font-family: "CabinetGrotesk-Medium", sans-serif;
+  font-family: 'CabinetGrotesk-Medium', sans-serif;
   font-weight: 500;
 }
 
@@ -108,16 +113,29 @@
   background: none;
   cursor: pointer;
   padding: 0;
-  font-family: "CabinetGrotesk-Medium", sans-serif;
+  font-family: 'CabinetGrotesk-Medium', sans-serif;
   font-weight: 500;
   flex-direction: column;
 }
 
-.header__avatar{
+.header__avatar {
   object-fit: cover;
   width: 40px;
   height: 40px;
   border-radius: 50%;
+}
+
+.header__user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.header__user-info:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 375px) {
@@ -184,7 +202,7 @@
     background: none;
     cursor: pointer;
     padding: 0;
-    font-family: "CabinetGrotesk-Medium", sans-serif;
+    font-family: 'CabinetGrotesk-Medium', sans-serif;
     font-weight: 500;
   }
 
@@ -218,6 +236,6 @@
   }
 
   .header .toggle-switch {
-        display: none;
-    }
+    display: none;
+  }
 }

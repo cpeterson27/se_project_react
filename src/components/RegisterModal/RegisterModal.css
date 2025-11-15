@@ -1,0 +1,7 @@
+.modal__redirect {
+    border: none;
+    background: none;
+    color: #000000;
+    opacity: 50%;
+    cursor: pointer;
+}

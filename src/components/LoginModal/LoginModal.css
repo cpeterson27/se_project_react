@@ -1,0 +1,7 @@
+.modal__label_error {
+  color: red;
+}
+
+.modal__input_error {
+  border-bottom-color: red;
+}

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
   const defaultValues = {
     name: "",
-    link: "",
+    imageUrl: "",
     weather: "",
   };
 
@@ -63,7 +63,7 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
           id="link"
           name="link"
           placeholder="Image URL"
-          value={values.link}
+          value={values.link || ""}
           onChange={handleChange}
         />
       </label>
