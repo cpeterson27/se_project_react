@@ -205,10 +205,16 @@ export const defaultClothingItems = [
     },
   ];
   
+  const BASE_URL = 
+  import.meta.NODE_ENV === "production"
+    ? "https://api.wtwr-app.chickenkiller.com"
+    : "http://localhost:3001";
 
-  export const coordinates = {
+ const location = {
     latitude: 41.29419625147663,
     longitude: -96.0755144452237,
   };
 
-  export const apikey = "bcfd6b2bf8fff10f5294c961cdb90d72";
+ const apiKey = "bcfd6b2bf8fff10f5294c961cdb90d72";
+
+ export { BASE_URL, location, apiKey };

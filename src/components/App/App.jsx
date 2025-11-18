@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 
 import './App.css';
 import Header from '../Header/Header';
@@ -11,21 +11,17 @@ import DeleteConfirmationModal from '../DeleteConfirmation/DeleteConfirmation';
 import NavModal from '../NavModal/NavModal';
 import ProfileModal from '../ProfileModal/ProfileModal';
 import Profile from '../Profile/Profile';
-import { Navigate } from 'react-router-dom';
 
 import { getWeather, filterWeatherData } from '../../utils/weatherApi';
-import { coordinates, apikey } from '../../utils/constants';
+import { location, apiKey } from '../../utils/constants';
 import {
-  getItems,
-  deleteItem,
+  getItemList,
+  removeItem,
   addItem,
-  getUser,
-  updateUser,
-  loginUser,
-  createUser,
-  likeItem,
-  unlikeItem,
+  addCardLike,
+  removeCardLike,
 } from '../../utils/api';
+import { register, login, checkToken, updateUser } from '../../utils/auth';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext.jsx';
 import CurrentTemperatureUnitContext from '../../contexts/CurrentTemperatureUnitContext.jsx';
@@ -73,7 +69,8 @@ function App() {
   };
 
   const handleDeleteItem = (itemId) => {
-    deleteItem(itemId)
+    const token = localStorage.getItem('jwt');
+    removeItem(itemId, token)
       .then(() => {
         setClothingItems((prev) => prev.filter((item) => item._id !== itemId));
         setShowDeleteModal(false);
@@ -96,7 +93,8 @@ function App() {
   };
 
   const onAddItem = (inputValues) => {
-    return addItem(inputValues)
+    const token = localStorage.getItem('jwt');
+    return addItem(inputValues, token)
       .then((newCardData) => {
         setClothingItems((prev) => [newCardData, ...prev]);
         closeActiveModal();
@@ -110,7 +108,8 @@ function App() {
 
   const handleOnSave = (evt) => {
     evt.preventDefault();
-    return updateUser({ name, avatar })
+    const token = localStorage.getItem('jwt');
+    return updateUser(name, avatar, token)
       .then((data) => {
         setSuccessfulMessage('Saved!');
         setName(data.name);
@@ -127,11 +126,30 @@ function App() {
       });
   };
 
+  const handleCardLike = ({ id, isLiked }) => {
+    const token = localStorage.getItem('jwt');
+    if (!token) {
+      return Promise.reject('You must be logged in to like items');
+    }
+
+    const action = isLiked ? removeCardLike(id, token) : addCardLike(id, token);
+
+    return action
+      .then((updatedCard) => {
+        setClothingItems((cards) =>
+          cards.map((item) =>
+            item._id === updatedCard._id ? updatedCard : item,
+          ),
+        );
+      })
+      .catch(console.error);
+  };
+
   const handleLogin = async (values) => {
     try {
-      const data = await loginUser(values);
+      const data = await login(values.email, values.password);
       localStorage.setItem('jwt', data.token);
-      const user = await getUser();
+      const user = await checkToken(data.token);
       setCurrentUser(user);
       setName(user.name);
       setAvatar(user.avatar);
@@ -146,7 +164,7 @@ function App() {
 
   const handleRegister = async (values) => {
     try {
-      await createUser(values);
+      await register(values.name, values.avatar, values.email, values.password);
       await handleLogin({ email: values.email, password: values.password });
     } catch (error) {
       console.error('Error registering user:', error);
@@ -163,25 +181,6 @@ function App() {
     setSuccessfulMessage('');
     setErrorMessage('');
     navigate('/');
-  };
-
-  const handleCardLike = ({ id, isLiked }) => {
-    const token = localStorage.getItem('jwt');
-    if (!token) {
-      return Promise.reject('You muse be logged in to like items');
-    }
-
-    const action = isLiked ? unlikeItem(id) : likeItem(id);
-
-    return action
-      .then((updatedCard) => {
-        setClothingItems((cards) =>
-          cards.map((item) =>
-            item._id === updatedCard._id ? updatedCard : item,
-          ),
-        );
-      })
-      .catch(console.error);
   };
 
   useEffect(() => {
@@ -207,7 +206,7 @@ function App() {
   }, [activeModal, showDeleteModal, showNavModal]);
 
   useEffect(() => {
-    getWeather(coordinates, apikey)
+    getWeather(location, apiKey)
       .then((data) => {
         const filteredData = filterWeatherData(data);
         setWeatherData(filteredData);
@@ -216,7 +215,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getItems()
+    getItemList()
       .then((data) => setClothingItems(data))
       .catch(console.error);
   }, []);
@@ -224,7 +223,7 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('jwt');
     if (token) {
-      getUser()
+      checkToken(token)
         .then((userData) => {
           setCurrentUser(userData);
           setName(userData.name);
@@ -338,10 +337,12 @@ function App() {
                   className="profile__input"
                 />
               </div>
-              <label className="profile__modal" htmlFor="profile-avatar">Avatar URL</label>
+              <label className="profile__modal" htmlFor="profile-avatar">
+                Avatar URL
+              </label>
               <div className="profile__avatar-container">
                 <input
-                id="profile-avatar"
+                  id="profile-avatar"
                   value={avatar}
                   onChange={handleAvatarChange}
                   required

@@ -1,26 +1,28 @@
 
 
 .clothes__section {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-    flex-wrap: wrap;
     margin: 0;
     padding: 0;
 }
 
-.clothes__section-list {
-    display: flex;
-    flex-direction:column;
-    
+.clothes__list {
+     display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
 }
 
-.clothes__section-text {
-    display: flex;
-
+.clothes__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
 }
 
-.add-clothes-btn {
+.clothes__title {
+    display: flex;
+}
+
+.clothes__add-btn {
   border:none;
   padding:0;
   background-color: transparent;
@@ -35,7 +37,7 @@
 
 @media screen and (max-width: 375px) {
 
-    .clothes__section {
+    .clothes__list {
     grid-template-columns: 1fr 1fr;
   }
 

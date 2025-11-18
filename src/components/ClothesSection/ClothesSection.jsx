@@ -6,7 +6,6 @@ import "./ClothesSection.css";
 function ClothesSection({ handleAddClick, handleCardClick, clothingItems, onCardLike }) {
   const { currentUser } = useContext(CurrentUserContext);
 
-  // Filter to show only items owned by current user
   const userItems = clothingItems.filter((item) => item.owner === currentUser?._id);
 
   return (

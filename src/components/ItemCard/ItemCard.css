@@ -1,8 +1,7 @@
 .card {
   width: 323px;
   position: relative;
-  display: flex;
-  justify-content: center;
+
 }
 
 .card__name {
@@ -39,6 +38,11 @@
   visibility: visible;
 }
 
+.clothes__list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
 .card__image-container {
   position: relative;
 }
@@ -50,6 +54,7 @@
   right: 0;           
   display: flex;
   gap: 10px;
+  justify-content: center;
   align-items: center;
   padding: 15px;       
   z-index: 10;         
