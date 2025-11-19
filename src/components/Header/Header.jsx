@@ -7,7 +7,7 @@ import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import LoginModal from '../LoginModal/LoginModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
 import { useContext } from 'react';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import  CurrentUserContext  from '../../contexts/CurrentUserContext';
 
 function Header({
   weatherData,
