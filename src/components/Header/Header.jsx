@@ -6,7 +6,7 @@ import defaultAvatar from '../../assets/avatar.png';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import LoginModal from '../LoginModal/LoginModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
-import { currentUser } from '../../utils/constants';
+import { useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Header({
@@ -18,7 +18,7 @@ function Header({
 }) {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-const { current User } = CurrentUserContext;
+const { currentUser } = useContext(CurrentUserContext);
   const currentDate = new Date().toLocaleString('default', {
     month: 'long',
     day: 'numeric',
