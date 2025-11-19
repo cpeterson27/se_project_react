@@ -11,6 +11,7 @@ function Main({
   clothingItems,
   handleDeleteRequest,
   closeActiveModal,
+  onCardLike
 }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   const userContext = useContext(CurrentUserContext);
@@ -31,7 +32,7 @@ function Main({
             .filter((item) => item.weather === weatherData.type)
             .map((item) => (
               <ItemCard
-              
+              onCardLike={onCardLike}
                 key={item._id}
                 item={item}
                 onCardClick={handleCardClick}

@@ -249,7 +249,6 @@ function App() {
               handleAddClick={handleAddClick}
               weatherData={weatherData}
               handleNavClick={handleNavClick}
-              currentUser={currentUser}
               onLogin={handleLogin}
               onRegister={handleRegister}
             />
@@ -278,7 +277,6 @@ function App() {
                       handleAddClick={handleAddClick}
                       handleProfileClick={() => setActiveModal('profile-data')}
                       handleLogout={handleLogout}
-                      currentUser={currentUser}
                       onCardLike={handleCardLike}
                     />
                   ) : (

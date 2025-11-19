@@ -1,5 +1,6 @@
+// ProfileModal.jsx
 import "./ProfileModal.css";
-import closeIcon from "../../assets/close.svg";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const ProfileModal = ({
   children,
@@ -10,31 +11,21 @@ const ProfileModal = ({
   onClose,
   handleOnSave,
   successfulMessage,
-  errorMessage
+  errorMessage,
 }) => {
-
   return (
-    <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
-      <div className="modal__content">
-        <h2 className="modal__title">{title}</h2>
-        <button onClick={onClose} type="button" className="modal__close">
-          <img src={closeIcon} alt="Close" />
-        </button>
-        <form
-          onSubmit={handleOnSave}
-          className="modal__form"
-          name={name}
-          noValidate
-        >
-          {children}
-          <button className="modal__save" type="submit">
-            {buttonText}
-          </button>
-        </form>
-        {successfulMessage && <p className="success__message">{successfulMessage}</p>}
-         {errorMessage && <p className="error__message">{errorMessage}</p>}
-      </div>
-    </div>
+    <ModalWithForm
+      title={title}
+      name={name}
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleOnSave}
+      buttonText={buttonText}
+      successMessage={successfulMessage}
+    >
+      {children}
+      {errorMessage && <p className="error__message">{errorMessage}</p>}
+    </ModalWithForm>
   );
 };
 

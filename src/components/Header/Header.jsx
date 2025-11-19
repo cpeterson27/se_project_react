@@ -6,18 +6,19 @@ import defaultAvatar from '../../assets/avatar.png';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import LoginModal from '../LoginModal/LoginModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
+import { currentUser } from '../../utils/constants';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Header({
   weatherData,
   handleNavClick,
   handleAddClick,
-  currentUser,
   onLogin,
   onRegister,
 }) {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-
+const { current User } = CurrentUserContext;
   const currentDate = new Date().toLocaleString('default', {
     month: 'long',
     day: 'numeric',
@@ -100,12 +101,6 @@ function Header({
           >
             Log in
           </button>
-
-          <img
-            src={defaultAvatar}
-            alt="Default avatar"
-            className="header__avatar"
-          />
         </>
       )}
 
