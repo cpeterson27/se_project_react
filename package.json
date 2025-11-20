@@ -10,7 +10,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./dist/* cgdesigns93@wtwr-app.chickenkiller.com:home/cgdesigns93/frontend"
+    "deploy": "npm run build && scp -r ./dist/* cgdesigns93@wtwr-app.chickenkiller.com:/home/cgdesigns93/frontend"
   },
   "dependencies": {
     "mongoose": "^8.18.2",
