@@ -12,6 +12,13 @@
   z-index: 1000; /* ensure modal is on top */
 }
 
+.modal__error{
+  color: red;
+  font-size: 14px;
+  margin-top: -16px;
+  margin-bottom: 16px;
+}
+
 .modal_opened {
   visibility: visible;
   transition: all 0.3s ease-in-out;

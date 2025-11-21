@@ -1,51 +1,48 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import './Header.css';
 import logo from '../../assets/logo.svg';
 import defaultAvatar from '../../assets/avatar.png';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import LoginModal from '../LoginModal/LoginModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
-import { useContext } from 'react';
-import  CurrentUserContext  from '../../contexts/CurrentUserContext';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function Header({
-  weatherData,
-  handleNavClick,
-  handleAddClick,
-  onLogin,
-  onRegister,
-}) {
+function Header({ weatherData, handleNavClick, handleAddClick, onLogin, onRegister }) {
+  const { currentUser } = useContext(CurrentUserContext);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-const { currentUser } = useContext(CurrentUserContext);
+
   const currentDate = new Date().toLocaleString('default', {
     month: 'long',
     day: 'numeric',
   });
 
-  const handleLogin = (values) => {
-    onLogin(values);
+  // ----- Modal Handlers -----
+  const openLoginModal = () => setIsLoginModalOpen(true);
+  const closeLoginModal = () => setIsLoginModalOpen(false);
+
+  const openRegisterModal = () => setIsRegisterModalOpen(true);
+  const closeRegisterModal = () => setIsRegisterModalOpen(false);
+
+  // ----- Form Handlers -----
+  const handleLogin = async (values) => {
+    try {
+      await onLogin(values);
+      closeLoginModal();
+    } catch (err) {
+      console.error('Login failed:', err);
+    }
   };
 
-  const handleRegister = (values) => {
-    onRegister(values);
-  };
-
-  const handleRegisterClick = () => {
-    setIsRegisterModalOpen(true);
-  };
-
-  const closeRegisterModal = () => {
-    setIsRegisterModalOpen(false);
-  };
-
-  const handleLoginClick = () => {
-    setIsLoginModalOpen(true);
-  };
-
-  const closeLoginModal = () => {
-    setIsLoginModalOpen(false);
+  const handleRegister = async (values) => {
+    try {
+      await onRegister(values);
+      closeRegisterModal();
+    } catch (err) {
+      console.error('Registration failed:', err);
+      throw err; // rethrow so RegisterModal can show error message
+    }
   };
 
   return (
@@ -87,7 +84,7 @@ const { currentUser } = useContext(CurrentUserContext);
       ) : (
         <>
           <button
-            onClick={handleRegisterClick}
+            onClick={openRegisterModal}
             type="button"
             className="header__add-clothes-btn"
           >
@@ -95,31 +92,33 @@ const { currentUser } = useContext(CurrentUserContext);
           </button>
 
           <button
-            onClick={handleLoginClick}
+            onClick={openLoginModal}
             type="button"
             className="header__add-clothes-btn"
           >
-            Log in
+            Log In
           </button>
         </>
       )}
 
+      {/* ----- Modals ----- */}
       <LoginModal
         isOpen={isLoginModalOpen}
         onLogin={handleLogin}
         onClose={closeLoginModal}
         buttonText="Log In"
-        openRegisterModal={setIsRegisterModalOpen}
+        openRegisterModal={openRegisterModal}
       />
       <RegisterModal
         isOpen={isRegisterModalOpen}
         onSubmit={handleRegister}
         onClose={closeRegisterModal}
         buttonText="Next"
-        openLoginModal={setIsLoginModalOpen}
+        openLoginModal={openLoginModal}
       />
     </header>
   );
 }
 
 export default Header;
+

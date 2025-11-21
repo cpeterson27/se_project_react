@@ -1,8 +1,15 @@
 import { BASE_URL } from "../utils/constants";
 
-export const handleServerResponse = (res) => {
-  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+export const handleServerResponse = async (res) => {
+  const data = await res.json();
+  if (!res.ok) {
+    const error = new Error(data.message || `Error: ${res.status}`);
+    error.status = res.status;
+    throw error;
+  }
+  return data;
 };
+
 
 export function request(url, options) {
   return fetch(url, options).then(handleServerResponse);

@@ -22,12 +22,17 @@ function RegisterModal({
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    setErrorMessage('');
     try {
       await onSubmit(values);
-      onClose();
       setValues(defaultValues);
+      onClose();
     } catch (error) {
-      setErrorMessage('Registration failed. Please try again.');
+      if (error.status === 409) {
+        setErrorMessage('A user with this email already exists.');
+      } else {
+        setErrorMessage('Registration failed. Please try again.');
+      }
       console.error('Failed to register:', error);
     }
   };

@@ -10,6 +10,7 @@ const ModalWithForm = ({
   onClose,
   onSubmit,
   successMessage,
+  error,           // <-- add error prop
   redirectButton,
 }) => {
   return (
@@ -21,13 +22,18 @@ const ModalWithForm = ({
         </button>
         <form onSubmit={onSubmit} className="modal__form" name={name}>
           {children}
+
+          {/* Error message */}
+          {error && <p className="modal__error">{error}</p>}
+
           <div className="modal__buttons">
-          <button className="modal__submit" type="submit">
-            {buttonText}
-          </button>
-          {redirectButton}
+            <button className="modal__submit" type="submit">
+              {buttonText}
+            </button>
+            {redirectButton}
           </div>
         </form>
+
         {successMessage && <p className="success">{successMessage}</p>}
       </div>
     </div>
@@ -35,3 +41,4 @@ const ModalWithForm = ({
 };
 
 export default ModalWithForm;
+
