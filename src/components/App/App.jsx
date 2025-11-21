@@ -278,6 +278,7 @@ function App() {
                       handleProfileClick={() => setActiveModal('profile-data')}
                       handleLogout={handleLogout}
                       onCardLike={handleCardLike}
+                      currentUser={currentUser}
                     />
                   ) : (
                     <Navigate to="/" replace />

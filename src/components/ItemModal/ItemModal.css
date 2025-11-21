@@ -1,9 +1,47 @@
-.modal__content {
+.modal__content.modal__content_type_image {
+  padding: 0; 
+  position: relative; 
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
+/* NEW: Container for name and delete button */
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 32px 12px 32px;
+}
+
+.modal__caption {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.modal__delete-btn {
+  border: none;
+  background-color: transparent;
+  color: #FF4D00;
+  cursor: pointer;
+  font-family: 'CabinetGrotesk-Bold', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.modal__delete-btn:hover {
+  opacity: 0.6;
+}
+
+.modal__weather {
+  margin-left: 32px;
+  margin-top: 0;
+}
+
+/* Image fills the content */
 .modal__image {
   width: 100%;
   height: auto;
@@ -11,37 +49,22 @@
   display: block;
 }
 
-.modal__preview {
-  font-size: 20px;
-  text-align: left;
-  padding: 24px 32px 32px 32px;
-  display: flex;
-  flex-direction: column;
-}
-
-.modal__wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.modal__caption {
-  margin: 0;
-  font-size: 20px;
-}
-
-.modal__weather {
-  margin: 12px 0 0 0;
-}
-
-.modal__content_type_image {
-  padding: 0;
-}
-
-.modal__delete {
-  color: #ff4d00;
-  border: none;
-  font-size: 20px;
-  background-color: transparent;
+.item-modal__close {
+  position: absolute;
+  top: 20px;      
+  right: 28px;   
+  border: none;  
+  background: none; 
   cursor: pointer;
+  z-index: 1002; 
+  padding: 0;    
+}
+
+.item-modal__close img {
+  width: 24px;   
+  height: 24px;
+}
+
+.item-modal__close:hover {
+  opacity: 0.5; 
 }

@@ -206,7 +206,7 @@ export const defaultClothingItems = [
   ];
   
   const BASE_URL = 
-  import.meta.NODE_ENV === "production"
+  process.env.NODE_ENV === "production"
     ? "https://api.wtwr-app.chickenkiller.com"
     : "http://localhost:3001";
 

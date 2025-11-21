@@ -1,4 +1,3 @@
-// ProfileModal.jsx
 import "./ProfileModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
