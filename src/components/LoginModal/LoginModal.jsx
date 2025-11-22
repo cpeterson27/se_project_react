@@ -1,41 +1,42 @@
+import './LoginModal.css';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 import { useForm } from '../../hooks/useForm';
 import { useState, useEffect } from 'react';
-import './LoginModal.css';
 
 const defaultValues = {
   email: '',
   password: '',
 };
 
-const LoginModal = ({
-  isOpen,
-  onLogin,
-  onClose,
-  buttonText,
-  openRegisterModal,
-}) => {
+const LoginModal = ({ isOpen, onLogin, onClose, buttonText, openRegisterModal }) => {
   const { values, handleChange, setValues } = useForm(defaultValues);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     if (isOpen) {
-      setErrorMessage('');
       setValues(defaultValues);
+      setErrorMessage('');
     }
   }, [isOpen, setValues]);
 
-  async function handleSubmit(evt) {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
+    setErrorMessage(''); 
+
     try {
-      await onLogin(values);
-      onClose();
+      await onLogin(values); 
       setValues(defaultValues);
+      onClose(); 
     } catch (error) {
-      setErrorMessage('Login failed. Please check your credentials.');
-      console.error('Failed to login:', error);
+      if (error.status === 401) {
+        setErrorMessage('Invalid email or password.');
+      } else {
+        setErrorMessage(error.message || 'Login failed. Please try again.');
+      }
     }
-  }
+  };
+
+  if (!isOpen) return null;
 
   return (
     <ModalWithForm
@@ -59,10 +60,10 @@ const LoginModal = ({
       }
     >
       <label htmlFor="email" className="modal__label">
-        Email{' '}
+        Email
         <input
           type="email"
-          className="modal__input"
+          className={`modal__input ${errorMessage ? 'modal__input_error' : ''}`}
           id="email"
           name="email"
           placeholder="Email"
@@ -72,11 +73,8 @@ const LoginModal = ({
         />
       </label>
 
-      <label
-        htmlFor="password"
-        className={`modal__label ${errorMessage ? 'modal__label_error' : ''}`}
-      >
-        {errorMessage ? 'Incorrect Password' : ' Password'}{' '}
+      <label htmlFor="password" className="modal__label">
+        Password
         <input
           type="password"
           className={`modal__input ${errorMessage ? 'modal__input_error' : ''}`}
@@ -89,8 +87,11 @@ const LoginModal = ({
           minLength="6"
         />
       </label>
+
+      {errorMessage && <p className="modal__error">{errorMessage}</p>}
     </ModalWithForm>
   );
 };
 
 export default LoginModal;
+

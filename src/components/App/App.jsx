@@ -173,15 +173,16 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('jwt');
-    setCurrentUser(null);
-    setIsLoggedIn(false);
-    setName('');
-    setAvatar('');
-    setSuccessfulMessage('');
-    setErrorMessage('');
-    navigate('/');
-  };
+  localStorage.removeItem('jwt');
+  setCurrentUser(null);
+  setIsLoggedIn(false);
+  setName('');
+  setAvatar('');
+  setSuccessfulMessage('');
+  setErrorMessage('');
+  setClothingItems([]);
+  navigate('/');
+};
 
   useEffect(() => {
     const handleEscClose = (e) => {
@@ -214,11 +215,17 @@ function App() {
       .catch(console.error);
   }, []);
 
-  useEffect(() => {
-    getItemList()
+ useEffect(() => {
+  if (isLoggedIn) {
+    setClothingItems([]);
+    const token = localStorage.getItem('jwt');
+    getItemList(token)
       .then((data) => setClothingItems(data))
       .catch(console.error);
-  }, []);
+  } else {
+    setClothingItems([]);
+  }
+}, [isLoggedIn]);
 
   useEffect(() => {
     const token = localStorage.getItem('jwt');

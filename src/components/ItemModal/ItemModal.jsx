@@ -12,12 +12,10 @@ function ItemModal({ isOpen, card, onClose, handleDeleteRequest }) {
   return (
     <div className={`modal ${isOpen ? 'modal_opened' : ''}`}>
       <div className="modal__content modal__content_type_image">
-        {/* Close button with just the SVG */}
         <button onClick={onClose} type="button" className="item-modal__close">
           <img src={closeIcon} alt="Close" />
         </button>
 
-        {/* Image */}
         <div className="modal__image-container">
           <img
             src={card.imageUrl}
@@ -26,9 +24,7 @@ function ItemModal({ isOpen, card, onClose, handleDeleteRequest }) {
           />
         </div>
 
-        {/* Footer */}
         <div className="modal__footer">
-          {/* Header with name and delete button on same line */}
           <div className="modal__header">
             <h2 className="modal__caption">{card.name}</h2>
             {isLoggedIn && isOwner && (

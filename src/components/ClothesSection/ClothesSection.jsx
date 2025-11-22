@@ -1,12 +1,21 @@
-import { useContext } from "react";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
-import ItemCard from "../ItemCard/ItemCard";
-import "./ClothesSection.css";
+import { useContext } from 'react';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import ItemCard from '../ItemCard/ItemCard';
+import './ClothesSection.css';
 
-function ClothesSection({ handleAddClick, handleCardClick, clothingItems, onCardLike }) {
+function ClothesSection({
+  handleAddClick,
+  handleCardClick,
+  clothingItems,
+  onCardLike,
+}) {
   const { currentUser } = useContext(CurrentUserContext);
 
-  const userItems = clothingItems.filter((item) => item.owner === currentUser?._id);
+  const userItems = clothingItems.filter(
+    (item) => 
+      item.owner === currentUser?._id,
+  );
+  console.log(userItems, currentUser, clothingItems);
 
   return (
     <div className="clothes__section">

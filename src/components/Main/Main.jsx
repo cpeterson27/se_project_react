@@ -1,9 +1,9 @@
-import { useContext } from "react";
-import "./Main.css";
-import WeatherCard from "../WeatherCard/WeatherCard";
-import ItemCard from "../ItemCard/ItemCard";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useContext } from 'react';
+import './Main.css';
+import WeatherCard from '../WeatherCard/WeatherCard';
+import ItemCard from '../ItemCard/ItemCard';
+import CurrentTemperatureUnitContext from '../../contexts/CurrentTemperatureUnitContext';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function Main({
   weatherData,
@@ -11,7 +11,7 @@ function Main({
   clothingItems,
   handleDeleteRequest,
   closeActiveModal,
-  onCardLike
+  onCardLike,
 }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   const userContext = useContext(CurrentUserContext);
@@ -19,20 +19,24 @@ function Main({
 
   return (
     <main className="main">
-      <p className="welcome">Welcome, {currentUser?.name || "user"}!</p>
+      <p className="welcome">Welcome, {currentUser?.name || 'user'}!</p>
 
       <WeatherCard weatherData={weatherData} />
       <section className="cards">
         <p className="cards__text">
-          Today is {weatherData.temp[currentTemperatureUnit]} &deg;{" "}
+          Today is {weatherData.temp[currentTemperatureUnit]} &deg;{' '}
           {currentTemperatureUnit} / You may want to wear:
         </p>
         <ul className="cards__list">
           {clothingItems
-            .filter((item) => item.weather === weatherData.type)
+            .filter(
+              (item) =>
+                item.weather === weatherData.type &&
+              item.owner === currentUser?._id
+            )
             .map((item) => (
               <ItemCard
-              onCardLike={onCardLike}
+                onCardLike={onCardLike}
                 key={item._id}
                 item={item}
                 onCardClick={handleCardClick}
@@ -47,5 +51,3 @@ function Main({
 }
 
 export default Main;
-
-

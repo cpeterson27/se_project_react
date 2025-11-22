@@ -1,14 +1,12 @@
-
-
 .clothes__section {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .clothes__list {
-     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
 }
 
 .clothes__header {
@@ -19,12 +17,12 @@
 }
 
 .clothes__title {
-    display: flex;
+  display: flex;
 }
 
 .clothes__add-btn {
-  border:none;
-  padding:0;
+  border: none;
+  padding: 0;
   background-color: transparent;
   opacity: 60%;
   margin: 0;
@@ -32,12 +30,11 @@
 }
 
 .your-items {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 @media screen and (max-width: 375px) {
-
-    .clothes__list {
+  .clothes__list {
     grid-template-columns: 1fr 1fr;
   }
 

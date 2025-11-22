@@ -29,9 +29,9 @@ function Header({ weatherData, handleNavClick, handleAddClick, onLogin, onRegist
   const handleLogin = async (values) => {
     try {
       await onLogin(values);
-      closeLoginModal();
     } catch (err) {
       console.error('Login failed:', err);
+      throw err;
     }
   };
 
@@ -41,7 +41,7 @@ function Header({ weatherData, handleNavClick, handleAddClick, onLogin, onRegist
       closeRegisterModal();
     } catch (err) {
       console.error('Registration failed:', err);
-      throw err; // rethrow so RegisterModal can show error message
+      throw err;
     }
   };
 

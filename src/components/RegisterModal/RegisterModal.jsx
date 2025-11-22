@@ -1,5 +1,5 @@
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from '../../hooks/useForm';
 import './RegisterModal.css';
 
@@ -20,6 +20,13 @@ function RegisterModal({
   const { values, handleChange, setValues } = useForm(defaultValues);
   const [errorMessage, setErrorMessage] = useState('');
 
+  useEffect(() => {
+    if (isOpen) {
+      setValues(defaultValues);
+      setErrorMessage('');
+    }
+  }, [isOpen, setValues]);
+
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     setErrorMessage('');
@@ -28,12 +35,15 @@ function RegisterModal({
       setValues(defaultValues);
       onClose();
     } catch (error) {
+      console.log('Full error object:', error);
+      console.log('Error status:', error.status);
+      console.log('Error message:', error.message);
+      
       if (error.status === 409) {
         setErrorMessage('A user with this email already exists.');
       } else {
-        setErrorMessage('Registration failed. Please try again.');
+        setErrorMessage(error.message || 'Registration failed. Please try again.');
       }
-      console.error('Failed to register:', error);
     }
   };
 
@@ -116,6 +126,8 @@ function RegisterModal({
           required
         />
       </label>
+
+      {errorMessage && <p className="modal__error">{errorMessage}</p>}
     </ModalWithForm>
   );
 }
