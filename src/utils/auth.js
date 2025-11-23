@@ -2,7 +2,7 @@ import { handleServerResponse } from "./api";
 import { BASE_URL } from "../utils/constants";
 
 export const register = (name, avatar, email, password) => {
-  return fetch(`${BASE_URL}/users/signup`, {
+  return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -13,7 +13,7 @@ export const register = (name, avatar, email, password) => {
 };
 
 export const login = (email, password) => {
-  return fetch(`${BASE_URL}/users/signin`, {
+  return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",
