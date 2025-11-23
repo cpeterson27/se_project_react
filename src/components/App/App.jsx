@@ -23,8 +23,6 @@ import {
 } from '../../utils/api';
 import { register, login, checkToken, updateUser } from '../../utils/auth';
 
-import { TailSpin } from 'react-loader-spinner';
-
 import CurrentUserContext from '../../contexts/CurrentUserContext.jsx';
 import CurrentTemperatureUnitContext from '../../contexts/CurrentTemperatureUnitContext.jsx';
 
@@ -51,7 +49,6 @@ function App() {
   const [avatar, setAvatar] = useState('');
   const [successfulMessage, setSuccessfulMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleNavClick = () => {
     setShowNavModal(true);
@@ -219,17 +216,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
     getItemList()
       .then((data) => {
         setClothingItems(data);
       })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .catch(console.error);
   }, []);
 
   useEffect(() => {
@@ -250,35 +241,6 @@ function App() {
     }
   }, []);
 
-  // **Early return for full‑page loading spinner**
-  if (isLoading) {
-    return (
-      <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'rgba(255, 255, 255, 0.9)',
-          zIndex: 9999,
-        }}
-      >
-        <TailSpin
-          height={80}
-          width={80}
-          color="#333"
-          ariaLabel="tail-spin-loading"
-          visible={true}
-        />
-      </div>
-    );
-  }
-
-  // Normal app UI
   return (
     <CurrentUserContext.Provider value={{ currentUser, isLoggedIn }}>
       <CurrentTemperatureUnitContext.Provider
