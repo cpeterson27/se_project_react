@@ -23,6 +23,8 @@ import {
 } from '../../utils/api';
 import { register, login, checkToken, updateUser } from '../../utils/auth';
 
+import { TailSpin } from 'react-loader-spinner';
+
 import CurrentUserContext from '../../contexts/CurrentUserContext.jsx';
 import CurrentTemperatureUnitContext from '../../contexts/CurrentTemperatureUnitContext.jsx';
 
@@ -49,6 +51,7 @@ function App() {
   const [avatar, setAvatar] = useState('');
   const [successfulMessage, setSuccessfulMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleNavClick = () => {
     setShowNavModal(true);
@@ -138,8 +141,8 @@ function App() {
       .then((updatedCard) => {
         setClothingItems((cards) =>
           cards.map((item) =>
-            item._id === updatedCard._id ? updatedCard : item,
-          ),
+            item._id === updatedCard._id ? updatedCard : item
+          )
         );
       })
       .catch(console.error);
@@ -173,16 +176,16 @@ function App() {
   };
 
   const handleLogout = () => {
-  localStorage.removeItem('jwt');
-  setCurrentUser(null);
-  setIsLoggedIn(false);
-  setName('');
-  setAvatar('');
-  setSuccessfulMessage('');
-  setErrorMessage('');
-  setClothingItems([]);
-  navigate('/');
-};
+    localStorage.removeItem('jwt');
+    setCurrentUser(null);
+    setIsLoggedIn(false);
+    setName('');
+    setAvatar('');
+    setSuccessfulMessage('');
+    setErrorMessage('');
+    setClothingItems([]);
+    navigate('/');
+  };
 
   useEffect(() => {
     const handleEscClose = (e) => {
@@ -215,17 +218,19 @@ function App() {
       .catch(console.error);
   }, []);
 
- useEffect(() => {
-  if (isLoggedIn) {
-    setClothingItems([]);
-    const token = localStorage.getItem('jwt');
-    getItemList(token)
-      .then((data) => setClothingItems(data))
-      .catch(console.error);
-  } else {
-    setClothingItems([]);
-  }
-}, [isLoggedIn]);
+  useEffect(() => {
+    setIsLoading(true);
+    getItemList()
+      .then((data) => {
+        setClothingItems(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem('jwt');
@@ -245,6 +250,35 @@ function App() {
     }
   }, []);
 
+  // **Early return for full‑page loading spinner**
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          zIndex: 9999,
+        }}
+      >
+        <TailSpin
+          height={80}
+          width={80}
+          color="#333"
+          ariaLabel="tail-spin-loading"
+          visible={true}
+        />
+      </div>
+    );
+  }
+
+  // Normal app UI
   return (
     <CurrentUserContext.Provider value={{ currentUser, isLoggedIn }}>
       <CurrentTemperatureUnitContext.Provider
@@ -282,7 +316,9 @@ function App() {
                       handleCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       handleAddClick={handleAddClick}
-                      handleProfileClick={() => setActiveModal('profile-data')}
+                      handleProfileClick={() =>
+                        setActiveModal('profile-data')
+                      }
                       handleLogout={handleLogout}
                       onCardLike={handleCardLike}
                       currentUser={currentUser}
@@ -359,6 +395,7 @@ function App() {
                 />
               </div>
             </ProfileModal>
+
             <Footer />
           </div>
         </div>
@@ -368,3 +405,4 @@ function App() {
 }
 
 export default App;
+
