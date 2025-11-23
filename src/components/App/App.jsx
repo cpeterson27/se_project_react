@@ -138,8 +138,8 @@ function App() {
       .then((updatedCard) => {
         setClothingItems((cards) =>
           cards.map((item) =>
-            item._id === updatedCard._id ? updatedCard : item
-          )
+            item._id === updatedCard._id ? updatedCard : item,
+          ),
         );
       })
       .catch(console.error);
@@ -173,16 +173,16 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('jwt');
-    setCurrentUser(null);
-    setIsLoggedIn(false);
-    setName('');
-    setAvatar('');
-    setSuccessfulMessage('');
-    setErrorMessage('');
-    setClothingItems([]);
-    navigate('/');
-  };
+  localStorage.removeItem('jwt');
+  setCurrentUser(null);
+  setIsLoggedIn(false);
+  setName('');
+  setAvatar('');
+  setSuccessfulMessage('');
+  setErrorMessage('');
+  setClothingItems([]);
+  navigate('/');
+};
 
   useEffect(() => {
     const handleEscClose = (e) => {
@@ -215,9 +215,10 @@ function App() {
       .catch(console.error);
   }, []);
 
-  useEffect(() => {
+ useEffect(() => {
     getItemList()
       .then((data) => {
+        console.log('Received clothing items:', data); 
         setClothingItems(data);
       })
       .catch(console.error);
@@ -278,9 +279,7 @@ function App() {
                       handleCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       handleAddClick={handleAddClick}
-                      handleProfileClick={() =>
-                        setActiveModal('profile-data')
-                      }
+                      handleProfileClick={() => setActiveModal('profile-data')}
                       handleLogout={handleLogout}
                       onCardLike={handleCardLike}
                       currentUser={currentUser}
@@ -357,7 +356,6 @@ function App() {
                 />
               </div>
             </ProfileModal>
-
             <Footer />
           </div>
         </div>
@@ -367,4 +365,3 @@ function App() {
 }
 
 export default App;
-

@@ -29,11 +29,7 @@ function Main({
         </p>
         <ul className="cards__list">
           {clothingItems
-            .filter(
-              (item) =>
-                item.weather === weatherData.type &&
-              item.owner === currentUser?._id
-            )
+            .filter((item) => item.weather === weatherData.type)
             .map((item) => (
               <ItemCard
                 onCardLike={onCardLike}
