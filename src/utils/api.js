@@ -15,10 +15,9 @@ export function request(url, options) {
   return fetch(url, options).then(handleServerResponse);
 }
 
-const getItemList = (token) => {
+const getItemList = () => {
   return request(`${BASE_URL}/items`, {
     headers: {
-      authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   });
